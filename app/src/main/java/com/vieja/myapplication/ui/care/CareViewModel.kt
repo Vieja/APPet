@@ -1,4 +1,4 @@
-package com.vieja.myapplication.ui.dashboard
+package com.vieja.myapplication.ui.care
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,13 +1,13 @@
-package com.vieja.myapplication.ui.notifications
+package com.vieja.myapplication.ui.info
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.vieja.bricklist.DBAccess
 import com.vieja.myapplication.MainActivity
 import com.vieja.myapplication.R
 
@@ -31,11 +31,21 @@ class InfoFragment : Fragment() {
         val toolbar: Toolbar = root.findViewById<Toolbar>(R.id.toolbar)
         (requireActivity() as? MainActivity)?.setSupportActionBar(toolbar)
 
+        val dbAccess: DBAccess? = DBAccess.getInstance(requireContext())
+        dbAccess!!.open()
+        var result = dbAccess.getFirstPet()
+        Log.v("DBBB",result)
+
 //        val textView: TextView = root.findViewById(R.id.text_notifications)
 //        infoViewModel.text.observe(viewLifecycleOwner, Observer {
 //            textView.text = it
 //        })
         return root
+    }
+
+    override fun onStart() {
+        super.onStart()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

@@ -5,8 +5,10 @@ import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.vieja.bricklist.DBAccess
 import com.vieja.myapplication.MainActivity
 import com.vieja.myapplication.R
@@ -30,6 +32,8 @@ class InfoFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_info, container, false)
         val toolbar: Toolbar = root.findViewById<Toolbar>(R.id.toolbar)
         (requireActivity() as? MainActivity)?.setSupportActionBar(toolbar)
+        var collapsingToolbar = root.findViewById<CollapsingToolbarLayout>(R.id.collapsingToolbar)
+        collapsingToolbar.setExpandedTitleColor(ContextCompat.getColor(requireContext(), R.color.purple_500))
 
         val dbAccess: DBAccess? = DBAccess.getInstance(requireContext())
         dbAccess!!.open()

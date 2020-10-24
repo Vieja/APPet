@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteStatement
 import android.os.AsyncTask
 import android.util.Log
 import android.util.Xml
+import androidx.core.database.getStringOrNull
+import com.vieja.myapplication.models.Pet
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import org.xml.sax.InputSource
@@ -17,8 +19,10 @@ import java.io.StringReader
 import java.io.StringWriter
 import java.net.URL
 import java.net.URLConnection
+import java.util.*
 import javax.xml.parsers.DocumentBuilder
 import javax.xml.parsers.DocumentBuilderFactory
+import kotlin.collections.ArrayList
 
 
 class DBAccess private constructor(context: Context) {
@@ -29,11 +33,15 @@ class DBAccess private constructor(context: Context) {
         database = openHelper.writableDatabase
     }
 
-    fun getFirstPet(): String {
-        var cur = database!!.rawQuery("SELECT name FROM Pet WHERE id = 1", null)
-        cur.moveToFirst()
-        if (cur.isAfterLast) return ""
-        else return cur.getString(0)
+    fun getFirstPet(): Pet? {
+        var cursor = database!!.rawQuery("SELECT * FROM Pet WHERE id = 1", null)
+        cursor.moveToFirst()
+        if (cursor.isAfterLast) return null
+        else {
+            return Pet(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),
+                    cursor.getString(5), cursor.getBlob(6), Date(cursor.getLong(7)), Date(cursor.getLong(8)*1000),
+                    cursor.getString(9), cursor.getString(10), Date(cursor.getLong(11)*1000), cursor.getString(12))
+        }
     }
 
 

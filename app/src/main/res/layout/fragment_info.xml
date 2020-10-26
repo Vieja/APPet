@@ -19,7 +19,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
@@ -196,7 +196,7 @@
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="-10dp"
-                        android:text="Podstawowe informacje"
+                        android:text="Dodatkowe informacje"
                         android:textSize="15sp" />
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -223,7 +223,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/info_label_birth"
+                        android:id="@+id/info_label_death"
                         style="@style/My.TextInputLayout.FilledBox.Padding"
                         android:layout_width="match_parent"
                         android:layout_height="65dp"
@@ -234,49 +234,34 @@
                         app:errorEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/info_text_birth"
+                            android:id="@+id/info_text_death"
                             android:layout_width="match_parent"
                             android:layout_height="65dp"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
-                            android:hint="Data urodzenia"
+                            android:hint="Data śmierci"
                             android:inputType="date"
-                            android:text="birth" />
+                            android:text="death" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/info_label_acquisition"
-                        style="@style/My.TextInputLayout.FilledBox.Padding"
-                        android:layout_width="match_parent"
-                        android:layout_height="65dp"
-                        android:layout_gravity="center_vertical"
-                        android:background="@android:color/transparent"
-                        android:paddingHorizontal="15dp"
-                        app:boxBackgroundColor="@android:color/transparent"
-                        app:errorEnabled="true">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/info_text_acquisition"
-                            android:layout_width="match_parent"
-                            android:layout_height="65dp"
-                            android:focusable="false"
-                            android:focusableInTouchMode="false"
-                            android:hint="Data przygarnięcia"
-                            android:inputType="date"
-                            android:text="acquisition" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
+                    <!--margines pod EditText wewnątrz karty -->
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp" />
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="10dp"/>
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
+            <!--margines pod ostatnią kartą-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginBottom="10dp" />
+
 
         </LinearLayout>
-
 
     </androidx.core.widget.NestedScrollView>
 

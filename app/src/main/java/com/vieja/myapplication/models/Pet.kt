@@ -1,6 +1,10 @@
 package com.vieja.myapplication.models
 
+import android.content.Context
+import android.provider.Settings.Global.getString
+import com.vieja.myapplication.R
 import java.util.*
+import kotlin.collections.ArrayList
 
 class Pet(var id: Int,
           var name: String?,
@@ -15,4 +19,35 @@ class Pet(var id: Int,
           var description: String?,
           var acquisition_date: Date?,
           var genes: String?) {
+
+    fun getLocalPetSex(c : Context) : String {
+        when (sex) {
+            "male" -> {
+                return c.getString(R.string.sex_male)
+            }
+            "female" -> {
+                return c.getString(R.string.sex_female)
+            }
+            "unknown" -> {
+                return c.getString(R.string.sex_unknown)
+            }
+        }
+        return ""
+    }
+
+    fun getNullAttributesNames() : ArrayList<String> {
+        lateinit var array : ArrayList<String>
+        if (name == null) array.add("name")
+        if (breed == null) array.add("breed")
+        if (species == null) array.add("species")
+        if (sex == null) array.add("sex")
+        if (birth == null) array.add("birth")
+        if (death == null) array.add("death")
+        if (color == null) array.add("color")
+        if (description == null) array.add("description")
+        if (acquisition_date == null) array.add("acquisition_date")
+        if (genes == null) array.add("genes")
+        return array
+    }
 }
+

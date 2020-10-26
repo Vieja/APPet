@@ -39,8 +39,8 @@ class DBAccess private constructor(context: Context) {
         if (cursor.isAfterLast) return null
         else {
             return Pet(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),
-                    cursor.getString(5), cursor.getBlob(6), Date(cursor.getLong(7)), Date(cursor.getLong(8)*1000),
-                    cursor.getString(9), cursor.getString(10), Date(cursor.getLong(11)*1000), cursor.getString(12))
+                    cursor.getString(5), cursor.getBlob(6), Date(cursor.getLong(7)), Date(cursor.getLong(8)),
+                    cursor.getString(9), cursor.getString(10), Date(cursor.getLong(11)), cursor.getString(12))
         }
     }
 

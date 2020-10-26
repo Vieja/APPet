@@ -17,7 +17,7 @@
         app:expandedTitleMarginEnd="56dp"
         app:expandedTitleMarginStart="40dp"
         app:layout_scrollFlags="scroll|exitUntilCollapsed"
-        app:title="BrickList"
+        app:title="name"
         app:titleEnabled="true">
 
         <ImageView

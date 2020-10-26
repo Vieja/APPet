@@ -36,7 +36,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/info_label_category"
-                        style="@style/My.TextInputLayout.FilledBox.Padding"
+                        style="@style/My.TextInputLayout.FilledBox.Padding.ExposedDropdown"
                         android:layout_width="match_parent"
                         android:layout_height="65dp"
                         android:layout_gravity="center_vertical"
@@ -45,15 +45,16 @@
                         app:boxBackgroundColor="@android:color/transparent"
                         app:errorEnabled="true">
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
                             android:id="@+id/info_text_category"
                             android:layout_width="match_parent"
                             android:layout_height="65dp"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
                             android:hint="Kategoria"
-                            android:inputType="text"
-                            android:text="name" />
+                            android:inputType="none"
+                            android:text="d"
+                            />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -182,7 +183,9 @@
                         android:background="@android:color/transparent"
                         android:paddingHorizontal="15dp"
                         app:boxBackgroundColor="@android:color/transparent"
-                        app:errorEnabled="true">
+                        app:errorEnabled="true"
+                        app:endIconDrawable="@drawable/ic_baseline_cake_24"
+                        app:endIconMode="custom">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/info_text_birth"

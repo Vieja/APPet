@@ -1,4 +1,4 @@
-package com.vieja.bricklist
+package com.vieja.myapplication.database
 
 import android.content.ContentValues
 import android.content.Context
@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteStatement
 import android.os.AsyncTask
 import android.util.Log
 import android.util.Xml
-import androidx.core.database.getStringOrNull
+import com.vieja.myapplication.R
 import com.vieja.myapplication.models.Pet
 import org.w3c.dom.Document
 import org.w3c.dom.Element
@@ -25,7 +25,7 @@ import javax.xml.parsers.DocumentBuilderFactory
 import kotlin.collections.ArrayList
 
 
-class DBAccess private constructor(context: Context) {
+class DBAccess private constructor(val context: Context) {
     private val openHelper: SQLiteOpenHelper
     private var database: SQLiteDatabase? = null
 
@@ -42,6 +42,33 @@ class DBAccess private constructor(context: Context) {
                     cursor.getString(5), cursor.getBlob(6), Date(cursor.getLong(7)), Date(cursor.getLong(8)),
                     cursor.getString(9), cursor.getString(10), Date(cursor.getLong(11)), cursor.getString(12))
         }
+    }
+
+    fun getCategories() : ArrayList<String>? {
+        val array = ArrayList<String>()
+        array.add(getLocalCategory(context,"dog"))
+        array.add(getLocalCategory(context,"cat"))
+//        var cursor = database!!.rawQuery("SELECT * FROM Category", null)
+//        cursor.moveToFirst()
+//        while (!cursor.isAfterLast) {
+//            array.add(Category(cursor.getBlob(1),cursor.getString(0)))
+//            cursor.moveToNext()
+//        }
+//        cursor.close()
+        return array
+    }
+
+    fun getLocalCategory(c : Context, name: String): String {
+        when (name) {
+            "dog" -> {
+                return c.getString(R.string.dog_string)
+            }
+            "cat" -> {
+                return c.getString(R.string.cat_string)
+            }
+//            TODO dokończ
+        }
+        return ""
     }
 
 

@@ -1,4 +1,4 @@
-package com.vieja.bricklist
+package com.vieja.myapplication.database
 
 import android.content.Context
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper

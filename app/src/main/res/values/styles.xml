@@ -21,25 +21,4 @@
 
 
 
-
-    <style name="My.TextInputLayout.FilledBox.Padding.ExposedDropdown" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
-        <item name="materialThemeOverlay">@style/MyThemeOverlayFilledPadding_ExposedDropdown</item>
-    </style>
-
-    <style name="MyThemeOverlayFilledPadding_ExposedDropdown">
-        <item name="editTextStyle">@style/MyTextInputEditText_filledBox_ExposedDropdown_padding</item>
-    </style>
-
-    <style name="MyTextInputEditText_filledBox_ExposedDropdown_padding" parent="@style/Widget.MaterialComponents.TextView">
-        <!-- left and right padding -->
-        <item name="android:paddingStart" ns2:ignore="NewApi">2dp</item>
-        <item name="android:paddingEnd" ns2:ignore="NewApi">2dp</item>
-        <item name="android:paddingLeft">2dp</item>
-        <item name="android:paddingRight">2dp</item>
-
-        <!-- top and bottom padding -->
-    </style>
-
-
-
 </resources>

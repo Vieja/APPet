@@ -6,4 +6,6 @@
     <string name="sex_male">male</string>
     <string name="sex_female">female</string>
     <string name="sex_unknown">unknown</string>
+    <string name="dog_string">dog</string>
+    <string name="cat_string">cat</string>
 </resources>

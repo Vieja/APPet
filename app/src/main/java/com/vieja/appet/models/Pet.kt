@@ -1,8 +1,7 @@
-package com.vieja.myapplication.models
+package com.vieja.appet.models
 
 import android.content.Context
-import android.provider.Settings.Global.getString
-import com.vieja.myapplication.R
+import com.vieja.appet.R
 import java.util.*
 import kotlin.collections.ArrayList
 

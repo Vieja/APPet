@@ -1,4 +1,4 @@
-package com.vieja.myapplication.database
+package com.vieja.appet.database
 
 import android.content.ContentValues
 import android.content.Context
@@ -8,8 +8,8 @@ import android.database.sqlite.SQLiteStatement
 import android.os.AsyncTask
 import android.util.Log
 import android.util.Xml
-import com.vieja.myapplication.R
-import com.vieja.myapplication.models.Pet
+import com.vieja.appet.R
+import com.vieja.appet.models.Pet
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import org.xml.sax.InputSource

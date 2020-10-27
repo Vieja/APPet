@@ -1,9 +1,7 @@
-package com.vieja.myapplication.ui.info
+package com.vieja.appet.ui.info
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.AutoCompleteTextView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.appcompat.widget.Toolbar
@@ -14,9 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.vieja.myapplication.database.DBAccess
-import com.vieja.myapplication.MainActivity
-import com.vieja.myapplication.R
+import com.vieja.appet.database.DBAccess
+import com.vieja.appet.MainActivity
+import com.vieja.appet.R
 import java.text.SimpleDateFormat
 import java.util.*
 

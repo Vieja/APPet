@@ -1,4 +1,4 @@
-package com.vieja.myapplication
+package com.vieja.appet
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

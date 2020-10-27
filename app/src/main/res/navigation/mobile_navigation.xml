@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.vieja.myapplication.ui.home.HomeFragment"
+        android:name="com.vieja.appet.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_care"
-        android:name="com.vieja.myapplication.ui.care.CareFragment"
+        android:name="com.vieja.appet.ui.care.CareFragment"
         android:label="@string/title_care"
         tools:layout="@layout/fragment_care" />
 
     <fragment
         android:id="@+id/navigation_info"
-        android:name="com.vieja.myapplication.ui.info.InfoFragment"
+        android:name="com.vieja.appet.ui.info.InfoFragment"
         android:label="@string/title_info"
         tools:layout="@layout/fragment_info" />
 

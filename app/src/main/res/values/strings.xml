@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">APPet</string>
     <string name="title_home">Home</string>
     <string name="title_care">Care</string>
     <string name="title_info">Info</string>

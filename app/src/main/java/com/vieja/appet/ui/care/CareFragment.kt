@@ -1,4 +1,4 @@
-package com.vieja.myapplication.ui.care
+package com.vieja.appet.ui.care
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.vieja.myapplication.R
+import com.vieja.appet.R
 
 class CareFragment : Fragment() {
 

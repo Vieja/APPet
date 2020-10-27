@@ -1,4 +1,4 @@
-package com.vieja.myapplication
+package com.vieja.appet
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package com.vieja.myapplication.database
+package com.vieja.appet.database
 
 import android.content.Context
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper

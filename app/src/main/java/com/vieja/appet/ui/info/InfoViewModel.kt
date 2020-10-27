@@ -1,4 +1,4 @@
-package com.vieja.myapplication.ui.info
+package com.vieja.appet.ui.info
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

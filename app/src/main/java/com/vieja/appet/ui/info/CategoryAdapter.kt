@@ -1,13 +1,11 @@
-package com.vieja.myapplication.ui.info
+package com.vieja.appet.ui.info
 
 import android.content.Context
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.vieja.myapplication.R
-import com.vieja.myapplication.models.Pet
+import com.vieja.appet.R
 
 class CategoryAdapter(val context: Context, var dataSource: List<String>) : BaseAdapter() {
 

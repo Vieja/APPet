@@ -9,6 +9,7 @@ import android.os.AsyncTask
 import android.util.Log
 import android.util.Xml
 import com.vieja.appet.R
+import com.vieja.appet.models.Category
 import com.vieja.appet.models.Pet
 import org.w3c.dom.Document
 import org.w3c.dom.Element
@@ -44,31 +45,58 @@ class DBAccess private constructor(val context: Context) {
         }
     }
 
-    fun getCategories() : ArrayList<String>? {
-        val array = ArrayList<String>()
-        array.add(getLocalCategory(context,"dog"))
-        array.add(getLocalCategory(context,"cat"))
-//        var cursor = database!!.rawQuery("SELECT * FROM Category", null)
-//        cursor.moveToFirst()
-//        while (!cursor.isAfterLast) {
-//            array.add(Category(cursor.getBlob(1),cursor.getString(0)))
-//            cursor.moveToNext()
-//        }
-//        cursor.close()
+    fun getCategories() : ArrayList<Category>? {
+        val array = ArrayList<Category>()
+        var cursor = database!!.rawQuery("SELECT * FROM Category", null)
+        cursor.moveToFirst()
+        while (!cursor.isAfterLast) {
+            var name = cursor.getString(0)
+            array.add(Category(getLocalCategory(name), name))
+            cursor.moveToNext()
+        }
+        cursor.close()
         return array
     }
 
-    fun getLocalCategory(c : Context, name: String): String {
-        when (name) {
-            "dog" -> {
-                return c.getString(R.string.dog_string)
-            }
-            "cat" -> {
-                return c.getString(R.string.cat_string)
-            }
-//            TODO dokończ
-        }
-        return ""
+    fun getLocalCategory(name: String): String {
+        val id = context.resources.getIdentifier(name, "string", context.packageName)
+        return context.resources.getString(id)
+//        when (name) {
+//            "dog" -> {
+//                return c.getString(R.string.dog_string)
+//            }
+//            "cat" -> {
+//                return c.getString(R.string.cat_string)
+//            }
+//            "fish" -> {
+//                return c.getString(R.string.fish)
+//            }
+//            "bird" -> {
+//                return c.getString(R.string.bird)
+//            }
+//            "insect" -> {
+//                return c.getString(R.string.insect)
+//            }
+//            "lizard" -> {
+//                return c.getString(R.string.lizard)
+//            }
+//            "rabbit" -> {
+//                return c.getString(R.string.rabbit)
+//            }
+//            "rodent" -> {
+//                return c.getString(R.string.rodent)
+//            }
+//            "snake" -> {
+//                return c.getString(R.string.snake)
+//            }
+//            "spider" -> {
+//                return c.getString(R.string.spider)
+//            }
+//            "turtle" -> {
+//                return c.getString(R.string.turtle)
+//            }
+//        }
+//        return ""
     }
 
 

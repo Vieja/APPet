@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.vieja.appet.R
+import com.vieja.appet.models.Category
 
-class CategoryAdapter(val context: Context, var dataSource: List<String>) : BaseAdapter() {
+class CategoryAdapter(val context: Context, var dataSource: List<Category>) : BaseAdapter() {
 
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
@@ -23,8 +24,8 @@ class CategoryAdapter(val context: Context, var dataSource: List<String>) : Base
             view = convertView
             vh = view.tag as ItemHolder
         }
-        vh.label.text = dataSource.get(position)
-        val id = context.resources.getIdentifier(dataSource.get(position), "drawable", context.packageName)
+        vh.label.text = dataSource.get(position).local_name
+        val id = context.resources.getIdentifier(dataSource.get(position).res_name, "drawable", context.packageName)
         vh.img.setBackgroundResource(id)
 
         return view

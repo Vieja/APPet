@@ -6,6 +6,15 @@
     <string name="sex_male">male</string>
     <string name="sex_female">female</string>
     <string name="sex_unknown">unknown</string>
-    <string name="dog_string">dog</string>
-    <string name="cat_string">cat</string>
+    <string name="dog">dog</string>
+    <string name="cat">cat</string>
+    <string name="fish">fish</string>
+    <string name="bird">bird</string>
+    <string name="insect">insect</string>
+    <string name="lizard">lizard</string>
+    <string name="rabbit">rabbit</string>
+    <string name="rodent">rodent</string>
+    <string name="snake">snake</string>
+    <string name="spider">spider</string>
+    <string name="turtle">turtle/tortoise</string>
 </resources>

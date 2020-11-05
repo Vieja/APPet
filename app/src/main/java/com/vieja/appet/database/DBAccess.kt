@@ -34,15 +34,31 @@ class DBAccess private constructor(val context: Context) {
         database = openHelper.writableDatabase
     }
 
-    fun getFirstPet(): Pet? {
-        var cursor = database!!.rawQuery("SELECT * FROM Pet WHERE id = 1", null)
+    fun getPet(id : Int): Pet? {
+        var cursor = database!!.rawQuery("SELECT * FROM Pet WHERE id = "+id.toString(), null)
+        Log.v("LOKI",id.toString())
         cursor.moveToFirst()
         if (cursor.isAfterLast) return null
         else {
             return Pet(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),
-                    cursor.getString(5), cursor.getBlob(6), Date(cursor.getLong(7)), Date(cursor.getLong(8)),
-                    cursor.getString(9), cursor.getString(10), Date(cursor.getLong(11)), cursor.getString(12))
+                cursor.getString(5), cursor.getBlob(6), Date(cursor.getLong(7)), Date(cursor.getLong(8)),
+                cursor.getString(9), cursor.getString(10), Date(cursor.getLong(11)), cursor.getString(12))
         }
+    }
+
+    fun getPets() : ArrayList<Pet>? {
+        val array = ArrayList<Pet>()
+        var cursor = database!!.rawQuery("SELECT * FROM Pet", null)
+        cursor.moveToFirst()
+        while (!cursor.isAfterLast) {
+            val pet = Pet(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),
+                cursor.getString(5), cursor.getBlob(6), Date(cursor.getLong(7)), Date(cursor.getLong(8)),
+                cursor.getString(9), cursor.getString(10), Date(cursor.getLong(11)), cursor.getString(12))
+            array.add(pet)
+            cursor.moveToNext()
+        }
+        cursor.close()
+        return array
     }
 
     fun getCategories() : ArrayList<Category>? {

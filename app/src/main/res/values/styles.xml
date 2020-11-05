@@ -19,6 +19,9 @@
         <!-- top and bottom padding -->
     </style>
 
+    <style name="spinner_style">
+        <item name="android:popupBackground">#DFFFFFFF</item>
+    </style>
 
 
 </resources>

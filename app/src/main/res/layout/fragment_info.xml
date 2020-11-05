@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@android:color/holo_blue_dark">
+
     <include layout="@layout/collapsing_toolbar" />
 
     <androidx.core.widget.NestedScrollView
@@ -14,7 +15,8 @@
         android:fillViewport="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".MainActivity"
-        tools:showIn="@layout/activity_main">
+        tools:showIn="@layout/activity_main"
+        android:overScrollMode="never">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,7 +46,8 @@
 
                     <androidx.appcompat.widget.AppCompatSpinner
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="50dp"
                         android:layout_marginHorizontal="20dp"
                         android:id="@+id/spinnerCategory"/>
 

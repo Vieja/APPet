@@ -15,12 +15,24 @@
         android:id="@+id/navigation_care"
         android:name="com.vieja.appet.ui.care.CareFragment"
         android:label="@string/title_care"
-        tools:layout="@layout/fragment_care" />
+        tools:layout="@layout/fragment_care" >
+        <action
+            android:id="@+id/action_navigation_care_to_careCategoryFragment"
+            app:destination="@id/careCategoryFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_info"
         android:name="com.vieja.appet.ui.info.InfoFragment"
         android:label="@string/title_info"
         tools:layout="@layout/fragment_info" />
+    <fragment
+        android:id="@+id/careCategoryFragment"
+        android:name="com.vieja.appet.ui.care.category.CareCategoryFragment"
+        android:label="CareCategoryFragment" >
+        <action
+            android:id="@+id/action_careCategoryFragment_to_navigation_care"
+            app:destination="@id/navigation_care" />
+    </fragment>
 
 </navigation>

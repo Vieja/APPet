@@ -1,64 +1,55 @@
 package com.vieja.appet.ui.info
 
 import android.os.Bundle
-import android.util.Log
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
 import android.widget.TextView
-import androidx.appcompat.widget.AppCompatSpinner
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.os.ConfigurationCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import com.vieja.appet.MainActivity
 import com.vieja.appet.MainActivityViewModel
 import com.vieja.appet.R
 import com.vieja.appet.database.DBAccess
+import kotlinx.android.synthetic.main.collapsing_toolbar.*
+import kotlinx.android.synthetic.main.fragment_info.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class InfoFragment : Fragment() {
-
+class InfoFragment : Fragment(R.layout.fragment_info) {
 
     private lateinit var mainViewModel: MainActivityViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         mainViewModel = ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_info, container, false)
-        val toolbar: Toolbar = root.findViewById<Toolbar>(R.id.toolbar)
-        (requireActivity() as? MainActivity)?.setSupportActionBar(toolbar)
-        val collapsingToolbar = root.findViewById<CollapsingToolbarLayout>(R.id.collapsingToolbar)
+        (requireActivity() as? MainActivity)?.setSupportActionBar(toolbar_collapsed)
+        setHasOptionsMenu(true)
+        val appBarConfiguration = AppBarConfiguration(setOf(
+            R.id.navigation_home, R.id.navigation_care, R.id.navigation_info))
+        val navHostFragment = NavHostFragment.findNavController(this);
+        NavigationUI.setupWithNavController(toolbar_collapsed, navHostFragment,appBarConfiguration)
+
         collapsingToolbar.setExpandedTitleColor(
             ContextCompat.getColor(
                 requireContext(),
                 R.color.purple_500
             )
         )
-
-        presentPet(root)
-
-        return root
+        presentPet()
     }
 
-    fun populateDropdownCategory(root: View, categoryName: String) {
+    private fun populateDropdownCategory(categoryName: String) {
         val dbAccess: DBAccess? = DBAccess.getInstance(requireContext())
         dbAccess!!.open()
         val array = dbAccess.getCategories()
         val adapter = CategoryAdapter(requireContext(), array!!)
-        val spinner = root.findViewById<AppCompatSpinner>(R.id.spinnerCategory)
+        val spinner = spinnerCategory
         spinner.isEnabled = false
         spinner.adapter = adapter
         var id = 0
@@ -69,93 +60,81 @@ class InfoFragment : Fragment() {
         spinner.setSelection(id)
     }
 
-    fun presentPet(root: View) {
+    private fun presentPet() {
         val dbAccess: DBAccess? = DBAccess.getInstance(requireContext())
         dbAccess!!.open()
-        mainViewModel.getChosenPet().observe(viewLifecycleOwner, Observer {
+        mainViewModel.getChosenPet().observe(viewLifecycleOwner, {
             val pet = dbAccess.getPet(it)
-
             val formattedDateAsLongMonth = SimpleDateFormat(
                 "dd MMM yyyy", ConfigurationCompat.getLocales(
                     resources.configuration
                 )[0]
             )
-            root.findViewById<CollapsingToolbarLayout>(R.id.collapsingToolbar).title = pet!!.name
+            collapsingToolbar.title = pet!!.name
 
-            populateDropdownCategory(root, pet.category)
+            populateDropdownCategory(pet.category)
 
             if (pet.breed != null) {
-                (root.findViewById<TextInputEditText>(R.id.info_text_breed) as TextView).text =
-                    pet.breed
+                (info_text_breed as TextView).text = pet.breed
             } else {
-                root.findViewById<TextInputLayout>(R.id.info_label_breed).visibility = View.GONE
-                root.findViewById<TextInputEditText>(R.id.info_text_breed).visibility = View.GONE
+                info_label_breed.visibility = View.GONE
+                info_text_breed.visibility = View.GONE
             }
             if (pet.species != null) {
-                (root.findViewById<TextInputEditText>(R.id.info_text_species) as TextView).text =
-                    pet.species
+                (info_text_species as TextView).text = pet.species
             } else {
-                root.findViewById<TextInputLayout>(R.id.info_label_species).visibility = View.GONE
-                root.findViewById<TextInputEditText>(R.id.info_text_species).visibility = View.GONE
+                info_label_species.visibility = View.GONE
+                info_text_species.visibility = View.GONE
             }
             if (pet.sex != null) {
-
-                (root.findViewById<TextInputEditText>(R.id.info_text_sex) as TextView).text =
-                    pet.getLocalPetSex(
-                        requireContext()
-                    )
+                (info_text_sex as TextView).text =
+                    pet.getLocalPetSex(requireContext())
             } else {
-                root.findViewById<TextInputLayout>(R.id.info_label_sex).visibility = View.GONE
-                root.findViewById<TextInputEditText>(R.id.info_text_sex).visibility = View.GONE
+                info_label_sex.visibility = View.GONE
+                info_text_sex.visibility = View.GONE
             }
             if (pet.birth != Date(0)) {
-                (root.findViewById<TextInputEditText>(R.id.info_text_birth) as TextView).text =
+                (info_text_birth as TextView).text =
                     formattedDateAsLongMonth.format(
-                        pet.birth
+                        pet.birth!!
                     )
             } else {
-                root.findViewById<TextInputLayout>(R.id.info_label_birth).visibility = View.GONE
-                root.findViewById<TextInputEditText>(R.id.info_text_birth).visibility = View.GONE
+                info_label_birth.visibility = View.GONE
+                info_text_birth.visibility = View.GONE
             }
             if (pet.death != Date(0)) {
-                (root.findViewById<TextInputEditText>(R.id.info_text_death) as TextView).text =
+                (info_text_death as TextView).text =
                     formattedDateAsLongMonth.format(
-                        pet.death
+                        pet.death!!
                     )
             } else {
-                root.findViewById<TextInputLayout>(R.id.info_label_death).visibility = View.GONE
-                root.findViewById<TextInputEditText>(R.id.info_text_death).visibility = View.GONE
+                info_label_death.visibility = View.GONE
+                info_text_death.visibility = View.GONE
             }
             if (pet.acquisition_date != Date(0)) {
-                (root.findViewById<TextInputEditText>(R.id.info_text_acquisition) as TextView).text =
+                (info_text_acquisition as TextView).text =
                     formattedDateAsLongMonth.format(
-                        pet.acquisition_date
+                        pet.acquisition_date!!
                     )
             } else {
-                root.findViewById<TextInputLayout>(R.id.info_label_acquisition).visibility =
+                info_label_acquisition.visibility =
                     View.GONE
-                root.findViewById<TextInputEditText>(R.id.info_text_acquisition).visibility =
+                info_text_acquisition.visibility =
                     View.GONE
             }
             if (pet.color != null) {
-                (root.findViewById<TextInputEditText>(R.id.info_text_color) as TextView).text =
+                (info_text_color as TextView).text =
                     pet.color
             } else {
-                root.findViewById<TextInputLayout>(R.id.info_label_color).visibility = View.GONE
-                root.findViewById<TextInputEditText>(R.id.info_text_color).visibility = View.GONE
+                info_label_color.visibility = View.GONE
+                info_text_color.visibility = View.GONE
             }
-//        if (pet.description != null) {
-//            (root.findViewById<TextInputEditText>(R.id.info_text_description) as TextView).text = pet.description
-//        } else {
-//            root.findViewById<TextInputLayout>(R.id.info_label_description).visibility = View.GONE
-//            root.findViewById<TextInputEditText>(R.id.info_text_color).visibility = View.GONE
-//        }
             if (pet.genes != null) {
-                (root.findViewById<TextInputEditText>(R.id.info_text_genes) as TextView).text =
+                (info_text_genes as TextView).text =
                     pet.genes
             } else {
-                root.findViewById<TextInputLayout>(R.id.info_label_genes).visibility = View.GONE
-                root.findViewById<TextInputEditText>(R.id.info_text_genes).visibility = View.GONE
+                info_label_genes.visibility = View.GONE
+                info_text_genes.visibility = View.GONE
             }
         })
 

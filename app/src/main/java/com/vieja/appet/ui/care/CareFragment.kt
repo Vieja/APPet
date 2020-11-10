@@ -1,56 +1,57 @@
 package com.vieja.appet.ui.care
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
-import android.util.TypedValue
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
-import androidx.appcompat.widget.AppCompatSpinner
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.appbar.AppBarLayout
+import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import com.vieja.appet.MainActivity
 import com.vieja.appet.MainActivityViewModel
 import com.vieja.appet.R
 import com.vieja.appet.database.DBAccess
 import com.vieja.appet.models.Pet
-import com.vieja.appet.ui.info.CategoryAdapter
 import com.vieja.appet.ui.info.PetAdapter
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.collapsing_toolbar.*
+import kotlinx.android.synthetic.main.fragment_care.*
 
-class CareFragment : Fragment(), AdapterView.OnItemSelectedListener {
+class CareFragment : Fragment(R.layout.fragment_care), AdapterView.OnItemSelectedListener {
 
     private lateinit var mainViewModel: MainActivityViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         mainViewModel = ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_care, container, false)
-        val toolbar: Toolbar = root.findViewById<Toolbar>(R.id.filter_toolbar)
-        (requireActivity() as? MainActivity)?.setSupportActionBar(toolbar)
+        (requireActivity() as? MainActivity)?.setSupportActionBar((filter_toolbar) as Toolbar)
+        val appBarConfiguration = AppBarConfiguration(setOf(
+            R.id.navigation_home, R.id.navigation_care, R.id.navigation_info))
+        val navHostFragment = NavHostFragment.findNavController(this);
+        NavigationUI.setupWithNavController((filter_toolbar) as Toolbar, navHostFragment,appBarConfiguration)
 
-        inflateSpinner(root)
 
-        return root
+        inflateSpinner()
+
+        test.setOnClickListener {
+            findNavController(view).navigate(R.id.action_navigation_care_to_careCategoryFragment)
+        }
     }
 
-    fun inflateSpinner(root: View) {
+    private fun inflateSpinner() {
         val dbAccess: DBAccess? = DBAccess.getInstance(requireContext())
         dbAccess!!.open()
         val array = dbAccess.getPets()
         val adapter = PetAdapter(requireContext(), array!!)
-        val spinner = root.findViewById<AppCompatSpinner>(R.id.spinnerPet)
+        val spinner = spinnerPet
         spinner.adapter = adapter
-        mainViewModel.getChosenPet().observe(viewLifecycleOwner, Observer {
+        mainViewModel.getChosenPet().observe(viewLifecycleOwner, {
             var id = 0
             for (pet in array) {
                 if (it == pet.id) {
@@ -71,5 +72,6 @@ class CareFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onNothingSelected(parent: AdapterView<*>?) {
 
     }
+
 
 }

@@ -34,5 +34,10 @@
             android:id="@+id/action_careCategoryFragment_to_navigation_care"
             app:destination="@id/navigation_care" />
     </fragment>
+    <fragment
+        android:id="@+id/blankFragment"
+        android:name="com.vieja.appet.BlankFragment"
+        android:label="fragment_blank"
+        tools:layout="@layout/fragment_blank" />
 
 </navigation>

@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -30,12 +32,14 @@ class CareFragment : Fragment(R.layout.fragment_care), AdapterView.OnItemSelecte
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mainViewModel = ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
-        (requireActivity() as? MainActivity)?.setSupportActionBar((filter_toolbar) as Toolbar)
-        val appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.navigation_home, R.id.navigation_care, R.id.navigation_info))
+        (activity as MainActivity).setSupportActionBar((filter_toolbar) as Toolbar)
+        val appBarConfiguration = (activity as MainActivity).appBarConfiguration
         val navHostFragment = NavHostFragment.findNavController(this);
         NavigationUI.setupWithNavController((filter_toolbar) as Toolbar, navHostFragment,appBarConfiguration)
-
+        ((filter_toolbar) as Toolbar).navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_baseline_menu_white_24, null)
+        ((filter_toolbar) as Toolbar).setNavigationOnClickListener {
+            (activity as MainActivity).drawer_layout.openDrawer(GravityCompat.START)
+        }
 
         inflateSpinner()
 
@@ -70,7 +74,6 @@ class CareFragment : Fragment(R.layout.fragment_care), AdapterView.OnItemSelecte
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-
     }
 
 

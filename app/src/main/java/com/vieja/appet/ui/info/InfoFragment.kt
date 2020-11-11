@@ -6,7 +6,9 @@ import android.view.MenuInflater
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.ConfigurationCompat
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
@@ -16,7 +18,9 @@ import com.vieja.appet.MainActivity
 import com.vieja.appet.MainActivityViewModel
 import com.vieja.appet.R
 import com.vieja.appet.database.DBAccess
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.collapsing_toolbar.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_info.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -28,12 +32,15 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mainViewModel = ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
-        (requireActivity() as? MainActivity)?.setSupportActionBar(toolbar_collapsed)
+        (activity as MainActivity).setSupportActionBar(toolbar_collapsed)
         setHasOptionsMenu(true)
-        val appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.navigation_home, R.id.navigation_care, R.id.navigation_info))
-        val navHostFragment = NavHostFragment.findNavController(this);
+        val appBarConfiguration = (activity as MainActivity).appBarConfiguration
+        val navHostFragment = NavHostFragment.findNavController(this)
         NavigationUI.setupWithNavController(toolbar_collapsed, navHostFragment,appBarConfiguration)
+        toolbar_collapsed.navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_baseline_menu_white_24, null)
+        toolbar_collapsed.setNavigationOnClickListener {
+            (activity as MainActivity).drawer_layout.openDrawer(GravityCompat.START)
+        }
 
         collapsingToolbar.setExpandedTitleColor(
             ContextCompat.getColor(

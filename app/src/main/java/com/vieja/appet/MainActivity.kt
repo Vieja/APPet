@@ -2,7 +2,6 @@ package com.vieja.appet
 
 import android.os.Bundle
 import android.view.View
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -10,44 +9,30 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
+    lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val navBottomView: BottomNavigationView = findViewById(R.id.nav_bottom_view)
-        val navDraverView: NavigationView = findViewById(R.id.nav_drawer_view)
 
         navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-//        val appBarConfiguration = AppBarConfiguration(setOf(
-//                R.id.navigation_home, R.id.navigation_care, R.id.navigation_info))
-        appBarConfiguration = AppBarConfiguration.Builder(R.id.navigation_home, R.id.navigation_care,
-            R.id.navigation_info, R.id.blankFragment) //Pass the ids of fragments from nav_graph which you d'ont want to show back button in toolbar
+        appBarConfiguration = AppBarConfiguration.Builder(
+            R.id.navigation_home, R.id.navigation_care,
+            R.id.navigation_info, R.id.blankFragment
+        ) //Pass the ids of fragments from nav_graph which you d'ont want to show back button in toolbar
             .setDrawerLayout(drawer_layout) //Pass the drawer layout id from activity xml
             .build()
-//        setupActionBarWithNavController(navController, appBarConfiguration)
-//        navBottomView.setupWithNavController(navController)
-
         visibilityNavElements(navController)
 
     }
 
     private fun visibilityNavElements(navController: NavController) {
-
-        //Listen for the change in fragment (navigation) and hide or show drawer or bottom navigation accordingly if required
-        //Modify this according to your need
-        //If you want you can implement logic to deselect(styling) the bottom navigation menu item when drawer item selected using listener
-
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.careCategoryFragment -> hideDrawerNavigation()

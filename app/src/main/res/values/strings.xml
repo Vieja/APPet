@@ -3,9 +3,9 @@
     <string name="title_home">Home</string>
     <string name="title_care">Care</string>
     <string name="title_info">Info</string>
-    <string name="sex_male">male</string>
-    <string name="sex_female">female</string>
-    <string name="sex_unknown">unknown</string>
+    <string name="male">male</string>
+    <string name="female">female</string>
+    <string name="unknown">unknown</string>
     <string name="dog">dog</string>
     <string name="cat">cat</string>
     <string name="fish">fish</string>
@@ -17,8 +17,11 @@
     <string name="snake">snake</string>
     <string name="spider">spider</string>
     <string name="turtle">turtle/tortoise</string>
-    <string name="transition_category_id">id %d</string>
-    <string name="transition_category_name">name %d</string>
+    <string name="food">Food</string>
+    <string name="cleaning">Cleaning</string>
+    <string name="activity">Activity</string>
+    <string name="health">Health</string>
+    <string name="purchases">Purchases</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

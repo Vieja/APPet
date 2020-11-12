@@ -9,6 +9,7 @@ import android.os.AsyncTask
 import android.util.Log
 import android.util.Xml
 import com.vieja.appet.R
+import com.vieja.appet.models.CareCategory
 import com.vieja.appet.models.Category
 import com.vieja.appet.models.Pet
 import org.w3c.dom.Document
@@ -36,12 +37,11 @@ class DBAccess private constructor(val context: Context) {
 
     fun getPet(id : Int): Pet? {
         var cursor = database!!.rawQuery("SELECT * FROM Pet WHERE id = "+id.toString(), null)
-        Log.v("LOKI",id.toString())
         cursor.moveToFirst()
         if (cursor.isAfterLast) return null
         else {
             return Pet(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),
-                cursor.getString(5), cursor.getBlob(6), Date(cursor.getLong(7)), Date(cursor.getLong(8)),
+                getLocalNameOfRes(cursor.getString(5)), cursor.getBlob(6), Date(cursor.getLong(7)), Date(cursor.getLong(8)),
                 cursor.getString(9), cursor.getString(10), Date(cursor.getLong(11)), cursor.getString(12))
         }
     }
@@ -52,9 +52,22 @@ class DBAccess private constructor(val context: Context) {
         cursor.moveToFirst()
         while (!cursor.isAfterLast) {
             val pet = Pet(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),
-                cursor.getString(5), cursor.getBlob(6), Date(cursor.getLong(7)), Date(cursor.getLong(8)),
+                getLocalNameOfRes(cursor.getString(5)), cursor.getBlob(6), Date(cursor.getLong(7)), Date(cursor.getLong(8)),
                 cursor.getString(9), cursor.getString(10), Date(cursor.getLong(11)), cursor.getString(12))
             array.add(pet)
+            cursor.moveToNext()
+        }
+        cursor.close()
+        return array
+    }
+
+    fun getCareCategories() : List<CareCategory> {
+        val array = ArrayList<CareCategory>()
+        var cursor = database!!.rawQuery("SELECT * FROM CareCategory", null)
+        cursor.moveToFirst()
+        while (!cursor.isAfterLast) {
+            var name = cursor.getString(0)
+            array.add(CareCategory(getLocalNameOfRes(name), name))
             cursor.moveToNext()
         }
         cursor.close()
@@ -67,52 +80,16 @@ class DBAccess private constructor(val context: Context) {
         cursor.moveToFirst()
         while (!cursor.isAfterLast) {
             var name = cursor.getString(0)
-            array.add(Category(getLocalCategory(name), name))
+            array.add(Category(getLocalNameOfRes(name), name))
             cursor.moveToNext()
         }
         cursor.close()
         return array
     }
 
-    fun getLocalCategory(name: String): String {
+    fun getLocalNameOfRes(name: String): String {
         val id = context.resources.getIdentifier(name, "string", context.packageName)
         return context.resources.getString(id)
-//        when (name) {
-//            "dog" -> {
-//                return c.getString(R.string.dog_string)
-//            }
-//            "cat" -> {
-//                return c.getString(R.string.cat_string)
-//            }
-//            "fish" -> {
-//                return c.getString(R.string.fish)
-//            }
-//            "bird" -> {
-//                return c.getString(R.string.bird)
-//            }
-//            "insect" -> {
-//                return c.getString(R.string.insect)
-//            }
-//            "lizard" -> {
-//                return c.getString(R.string.lizard)
-//            }
-//            "rabbit" -> {
-//                return c.getString(R.string.rabbit)
-//            }
-//            "rodent" -> {
-//                return c.getString(R.string.rodent)
-//            }
-//            "snake" -> {
-//                return c.getString(R.string.snake)
-//            }
-//            "spider" -> {
-//                return c.getString(R.string.spider)
-//            }
-//            "turtle" -> {
-//                return c.getString(R.string.turtle)
-//            }
-//        }
-//        return ""
     }
 
 

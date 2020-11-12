@@ -40,11 +40,9 @@ class CareCategoryListAdapter(private val context: Context, private val caregori
 
     inner class MainHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name = itemView.careCategoryName
-        var id: Int = 0
 
         fun bind(pr: CareCategory) {
-            name.text = pr.name
-            id = pr.id
+            name.text = pr.local_name
         }
 
     }

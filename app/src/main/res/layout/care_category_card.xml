@@ -31,7 +31,7 @@
             android:id="@+id/careCategoryName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:paddingStart="88dp"
+            android:paddingStart="85dp"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"

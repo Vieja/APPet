@@ -1,6 +1,6 @@
 package com.vieja.appet.models
 
-class CareCategory (
-    val id: Int,
-    val name: String
-)
+class CareCategory (var local_name: String,
+                    var res_name: String) {
+
+}

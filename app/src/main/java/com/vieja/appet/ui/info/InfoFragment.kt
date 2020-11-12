@@ -94,8 +94,7 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
                 info_text_species.visibility = View.GONE
             }
             if (pet.sex != null) {
-                (info_text_sex as TextView).text =
-                    pet.getLocalPetSex(requireContext())
+                (info_text_sex as TextView).text = pet.sex
             } else {
                 info_label_sex.visibility = View.GONE
                 info_text_sex.visibility = View.GONE

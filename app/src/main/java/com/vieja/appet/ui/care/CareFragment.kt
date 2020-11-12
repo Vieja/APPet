@@ -50,27 +50,19 @@ class CareFragment : Fragment(R.layout.fragment_care), AdapterView.OnItemSelecte
         }
 
         inflateSpinner()
+        inflateRecyclerView()
 
+    }
+
+    private fun inflateRecyclerView() {
+        val dbAccess: DBAccess? = DBAccess.getInstance(requireContext())
+        dbAccess!!.open()
+        val categoriesList = dbAccess.getCareCategories()
         careCategoriesRecyclerView.setHasFixedSize(true)
-        val categoriesList = ArrayList<CareCategory>()
-        categoriesList.add(CareCategory(1,"food"))
-        categoriesList.add(CareCategory(2,"health"))
         careCategoriesRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = CareCategoryListAdapter(requireContext(), categoriesList)
         }
-
-//        test.setOnClickListener {
-//            val emailCardDetailTransitionName = "transition_test"
-//            val extras = FragmentNavigatorExtras(test to emailCardDetailTransitionName)
-//            findNavController(view).navigate(R.id.action_navigation_care_to_careCategoryFragment, null, null, extras)
-//        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-
     }
 
     private fun inflateSpinner() {

@@ -29,11 +29,7 @@
     <fragment
         android:id="@+id/careCategoryFragment"
         android:name="com.vieja.appet.ui.care.category.CareCategoryFragment"
-        android:label="CareCategoryFragment" >
-        <action
-            android:id="@+id/action_careCategoryFragment_to_navigation_care"
-            app:destination="@id/navigation_care" />
-    </fragment>
+        android:label="CareCategoryFragment" />
     <fragment
         android:id="@+id/blankFragment"
         android:name="com.vieja.appet.BlankFragment"

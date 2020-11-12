@@ -6,11 +6,13 @@ import android.widget.AdapterView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -43,8 +45,12 @@ class CareFragment : Fragment(R.layout.fragment_care), AdapterView.OnItemSelecte
 
         inflateSpinner()
 
+
+
         test.setOnClickListener {
-            findNavController(view).navigate(R.id.action_navigation_care_to_careCategoryFragment)
+            val emailCardDetailTransitionName = "transition_test"
+            val extras = FragmentNavigatorExtras(test to emailCardDetailTransitionName)
+            findNavController(view).navigate(R.id.action_navigation_care_to_careCategoryFragment, null, null, extras)
         }
     }
 

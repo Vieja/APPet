@@ -24,7 +24,7 @@ class CareCategoryFragment : Fragment(R.layout.fragment_care_category) {
         NavigationUI.setupWithNavController(toolbar_care_category, navHostFragment)
         open_care_category_card.transitionName = "careCategoryTransition_" + args.careCategoryName
         sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-        textView2.text = args.careCategoryName
+
 
 
     }

@@ -40,9 +40,10 @@ class CareCategoryListAdapter(private val context: Context, private val caregori
 
     inner class MainHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name = itemView.careCategoryName
-
+        val counter = itemView.careCategoryCount
         fun bind(pr: CareCategory) {
             name.text = pr.local_name
+            counter.text = pr.records_count.toString()
         }
 
     }

@@ -63,11 +63,14 @@ class DBAccess private constructor(val context: Context) {
 
     fun getCareCategories() : List<CareCategory> {
         val array = ArrayList<CareCategory>()
-        var cursor = database!!.rawQuery("SELECT * FROM CareCategory", null)
+        var cursor = database!!.rawQuery("SELECT CareCategory.name, count(CareRecords.id)\n" +
+                "from CareCategory left outer join CareRecords on (CareCategory.name = CareRecords.category)\n" +
+                "GROUP by CareCategory.name\n" +
+                "order by CareCategory.id;", null)
         cursor.moveToFirst()
         while (!cursor.isAfterLast) {
             var name = cursor.getString(0)
-            array.add(CareCategory(getLocalNameOfRes(name), name))
+            array.add(CareCategory(getLocalNameOfRes(name), name, cursor.getInt(1)))
             cursor.moveToNext()
         }
         cursor.close()

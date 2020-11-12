@@ -2,10 +2,13 @@ package com.vieja.bricklist
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
@@ -26,14 +29,15 @@ class CareCategoryListAdapter(private val context: Context, private val caregori
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
         holder.bind(caregoriesList[position])
-
-
-
         holder.name.setOnClickListener { view ->
-//            val emailCardDetailTransitionName = "transition_test"
-//            val extras = FragmentNavigatorExtras(view to emailCardDetailTransitionName)
+//            holder.itemView.caretransitionName = transition
+            Log.v("HEHEholdername",holder.name.text.toString())
+            val transition = "careCategoryTransition_" + holder.name.text.toString()
+            holder.itemView.care_category_card.transitionName = transition
+            Log.v("HEHEwczesniej",holder.itemView.care_category_card.transitionName)
+            val extras = FragmentNavigatorExtras(holder.itemView.care_category_card to transition)
             val action = CareFragmentDirections.actionNavigationCareToCareCategoryFragment(view.careCategoryName.text.toString())
-            findNavController(view).navigate(action)//, null, null, extras)
+            findNavController(view).navigate(action, extras)
         }
     }
 

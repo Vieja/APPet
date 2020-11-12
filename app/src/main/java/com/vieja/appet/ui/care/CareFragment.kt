@@ -3,6 +3,7 @@ package com.vieja.appet.ui.care
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
+import android.widget.LinearLayout
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
@@ -17,12 +18,15 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.vieja.appet.MainActivity
 import com.vieja.appet.MainActivityViewModel
 import com.vieja.appet.R
 import com.vieja.appet.database.DBAccess
+import com.vieja.appet.models.CareCategory
 import com.vieja.appet.models.Pet
 import com.vieja.appet.ui.info.PetAdapter
+import com.vieja.bricklist.CareCategoryListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.collapsing_toolbar.*
 import kotlinx.android.synthetic.main.fragment_care.*
@@ -46,11 +50,22 @@ class CareFragment : Fragment(R.layout.fragment_care), AdapterView.OnItemSelecte
         inflateSpinner()
 
 
+//        test.setOnClickListener {
+//            val emailCardDetailTransitionName = "transition_test"
+//            val extras = FragmentNavigatorExtras(test to emailCardDetailTransitionName)
+//            findNavController(view).navigate(R.id.action_navigation_care_to_careCategoryFragment, null, null, extras)
+//        }
+    }
 
-        test.setOnClickListener {
-            val emailCardDetailTransitionName = "transition_test"
-            val extras = FragmentNavigatorExtras(test to emailCardDetailTransitionName)
-            findNavController(view).navigate(R.id.action_navigation_care_to_careCategoryFragment, null, null, extras)
+    override fun onStart() {
+        super.onStart()
+        careCategoriesRecyclerView.setHasFixedSize(true)
+        val categoriesList = ArrayList<CareCategory>()
+        categoriesList.add(CareCategory(1,"food"))
+        categoriesList.add(CareCategory(2,"health"))
+        careCategoriesRecyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = CareCategoryListAdapter(requireContext(), categoriesList)
         }
     }
 

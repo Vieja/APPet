@@ -29,7 +29,11 @@
     <fragment
         android:id="@+id/careCategoryFragment"
         android:name="com.vieja.appet.ui.care.category.CareCategoryFragment"
-        android:label="CareCategoryFragment" />
+        android:label="CareCategoryFragment" >
+        <argument
+            android:name="careCategoryName"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/blankFragment"
         android:name="com.vieja.appet.BlankFragment"

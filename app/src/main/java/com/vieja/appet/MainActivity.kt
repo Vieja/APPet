@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.careCategoryFragment -> hideDrawerNavigation()
-//                R.id.settingsFragment -> hideBottomNavigation()
+                R.id.blankFragment -> hideBottomNavigation()
                 else -> showBothNavigation()
             }
         }

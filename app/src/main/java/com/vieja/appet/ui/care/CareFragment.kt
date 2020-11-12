@@ -37,6 +37,8 @@ class CareFragment : Fragment(R.layout.fragment_care), AdapterView.OnItemSelecte
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
         mainViewModel = ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
         (activity as MainActivity).setSupportActionBar((filter_toolbar) as Toolbar)
         val appBarConfiguration = (activity as MainActivity).appBarConfiguration
@@ -49,6 +51,14 @@ class CareFragment : Fragment(R.layout.fragment_care), AdapterView.OnItemSelecte
 
         inflateSpinner()
 
+        careCategoriesRecyclerView.setHasFixedSize(true)
+        val categoriesList = ArrayList<CareCategory>()
+        categoriesList.add(CareCategory(1,"food"))
+        categoriesList.add(CareCategory(2,"health"))
+        careCategoriesRecyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = CareCategoryListAdapter(requireContext(), categoriesList)
+        }
 
 //        test.setOnClickListener {
 //            val emailCardDetailTransitionName = "transition_test"
@@ -59,14 +69,8 @@ class CareFragment : Fragment(R.layout.fragment_care), AdapterView.OnItemSelecte
 
     override fun onStart() {
         super.onStart()
-        careCategoriesRecyclerView.setHasFixedSize(true)
-        val categoriesList = ArrayList<CareCategory>()
-        categoriesList.add(CareCategory(1,"food"))
-        categoriesList.add(CareCategory(2,"health"))
-        careCategoriesRecyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = CareCategoryListAdapter(requireContext(), categoriesList)
-        }
+
+
     }
 
     private fun inflateSpinner() {

@@ -33,7 +33,7 @@ class CareCategoryListAdapter(private val context: Context, private val caregori
         holder.itemView.care_category_card.transitionName = transition
         holder.name.setOnClickListener { view ->
             val extras = FragmentNavigatorExtras(holder.itemView.care_category_card to transition)
-            val action = CareFragmentDirections.actionNavigationCareToCareCategoryFragment(view.careCategoryName.text.toString())
+            val action = CareFragmentDirections.actionNavigationCareToCareCategoryFragment(holder.category_name)
             findNavController(view).navigate(action, extras)
         }
     }
@@ -41,9 +41,11 @@ class CareCategoryListAdapter(private val context: Context, private val caregori
     inner class MainHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name = itemView.careCategoryName
         val counter = itemView.careCategoryCount
+        lateinit var category_name : String
         fun bind(pr: CareCategory) {
             name.text = pr.local_name
             counter.text = pr.records_count.toString()
+            category_name = pr.res_name
         }
 
     }

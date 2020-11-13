@@ -10,6 +10,7 @@ import android.util.Log
 import android.util.Xml
 import com.vieja.appet.R
 import com.vieja.appet.models.CareCategory
+import com.vieja.appet.models.CareRecord
 import com.vieja.appet.models.Category
 import com.vieja.appet.models.Pet
 import org.w3c.dom.Document
@@ -21,6 +22,7 @@ import java.io.StringReader
 import java.io.StringWriter
 import java.net.URL
 import java.net.URLConnection
+import java.sql.Time
 import java.util.*
 import javax.xml.parsers.DocumentBuilder
 import javax.xml.parsers.DocumentBuilderFactory
@@ -71,6 +73,20 @@ class DBAccess private constructor(val context: Context) {
         while (!cursor.isAfterLast) {
             var name = cursor.getString(0)
             array.add(CareCategory(getLocalNameOfRes(name), name, cursor.getInt(1)))
+            cursor.moveToNext()
+        }
+        cursor.close()
+        return array
+    }
+
+    fun getCareRecords(careCategoryName: String): List<CareRecord> {
+        val array = ArrayList<CareRecord>()
+        var cursor = database!!.rawQuery("SELECT * FROM CareRecords WHERE category = \"" + careCategoryName + "\"", null)
+        cursor.moveToFirst()
+        while (!cursor.isAfterLast) {
+            val record = CareRecord(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), Date(cursor.getLong(4)),
+                Time(cursor.getLong(5)), cursor.getBlob(6), cursor.getString(7))
+            array.add(record)
             cursor.moveToNext()
         }
         cursor.close()
@@ -378,6 +394,8 @@ class DBAccess private constructor(val context: Context) {
         return res
 
     }
+
+
 
     companion object {
 

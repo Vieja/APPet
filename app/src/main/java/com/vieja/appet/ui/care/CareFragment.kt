@@ -1,6 +1,7 @@
 package com.vieja.appet.ui.care
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.LinearLayout
@@ -50,18 +51,17 @@ class CareFragment : Fragment(R.layout.fragment_care), AdapterView.OnItemSelecte
         }
 
         inflateSpinner()
-        inflateRecyclerView()
 
     }
 
-    private fun inflateRecyclerView() {
+    private fun inflateRecyclerView(pet_id : Int) {
         val dbAccess: DBAccess? = DBAccess.getInstance(requireContext())
         dbAccess!!.open()
-        val categoriesList = dbAccess.getCareCategories()
+        val categoriesList = dbAccess.getCareCategories(pet_id)
         careCategoriesRecyclerView.setHasFixedSize(true)
         careCategoriesRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = CareCategoryListAdapter(requireContext(), categoriesList)
+            adapter = CareCategoryListAdapter(categoriesList, pet_id)
         }
     }
 
@@ -88,6 +88,7 @@ class CareFragment : Fragment(R.layout.fragment_care), AdapterView.OnItemSelecte
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val pet = parent?.getItemAtPosition(position) as Pet
         mainViewModel.choosePet(pet.id)
+        inflateRecyclerView(pet.id)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {

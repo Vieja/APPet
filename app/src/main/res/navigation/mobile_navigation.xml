@@ -27,21 +27,6 @@
         android:label="@string/title_info"
         tools:layout="@layout/fragment_info" />
     <fragment
-        android:id="@+id/careCategoryFragment"
-        android:name="com.vieja.appet.ui.care.category.CareCategoryFragment"
-        android:label="CareCategoryFragment" >
-        <argument
-            android:name="careCategoryName"
-            app:argType="string" />
-        <action
-            android:id="@+id/action_careCategoryFragment_to_careRecordFragment"
-            app:destination="@id/careRecordFragment" >
-            <argument
-                android:name="careRecordID"
-                android:defaultValue="0" />
-        </action>
-    </fragment>
-    <fragment
         android:id="@+id/blankFragment"
         android:name="com.vieja.appet.BlankFragment"
         android:label="fragment_blank"
@@ -52,6 +37,20 @@
         android:label="CareRecordFragment" >
         <argument
             android:name="careRecordID"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/careCategoryFragment"
+        android:name="com.vieja.appet.ui.care.category.CareCategoryFragment"
+        android:label="CareCategoryFragment" >
+        <action
+            android:id="@+id/action_careCategoryFragment_to_careRecordFragment"
+            app:destination="@id/careRecordFragment" />
+        <argument
+            android:name="care_category_name"
+            app:argType="string" />
+        <argument
+            android:name="pet_id"
             app:argType="integer" />
     </fragment>
 

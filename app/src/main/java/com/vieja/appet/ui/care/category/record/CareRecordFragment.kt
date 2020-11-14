@@ -2,6 +2,8 @@ package com.vieja.appet.ui.care.category
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
@@ -22,12 +24,18 @@ class CareRecordFragment : Fragment(R.layout.fragment_record) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as? MainActivity)?.setSupportActionBar((toolbar_care_record) as Toolbar)
+        setHasOptionsMenu(true)
         val navHostFragment = NavHostFragment.findNavController(this)
         NavigationUI.setupWithNavController((toolbar_care_record) as Toolbar, navHostFragment)
         open_care_category_card.transitionName = "careRecordTransition_" + args.careRecordID
         sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
 
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_info_edit, menu)
     }
 
 

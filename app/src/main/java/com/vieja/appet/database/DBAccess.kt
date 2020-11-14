@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteStatement
 import android.os.AsyncTask
 import android.util.Log
 import android.util.Xml
-import com.vieja.appet.R
 import com.vieja.appet.models.CareCategory
 import com.vieja.appet.models.CareRecord
 import com.vieja.appet.models.Category
@@ -63,12 +62,12 @@ class DBAccess private constructor(val context: Context) {
         return array
     }
 
-    fun getCareCategories() : List<CareCategory> {
+    fun getCareCategories(pet_id : Int) : List<CareCategory> {
         val array = ArrayList<CareCategory>()
-        var cursor = database!!.rawQuery("SELECT CareCategory.name, count(CareRecords.id)\n" +
-                "from CareCategory left outer join CareRecords on (CareCategory.name = CareRecords.category)\n" +
-                "GROUP by CareCategory.name\n" +
-                "order by CareCategory.id;", null)
+        var cursor = database!!.rawQuery("SELECT CareCategory.name, count(z.id)\n" +
+                "from CareCategory left outer join (\n" +
+                "\tSELECT * from CareRecords where pet_id = \""+pet_id+"\" ) z\n" +
+                "on (CareCategory.name = z.category) GROUP by CareCategory.name order by CareCategory.id", null)
         cursor.moveToFirst()
         while (!cursor.isAfterLast) {
             var name = cursor.getString(0)
@@ -79,9 +78,9 @@ class DBAccess private constructor(val context: Context) {
         return array
     }
 
-    fun getCareRecords(careCategoryName: String): List<CareRecord> {
+    fun getCareRecords(careCategoryName: String, petId: Any?): List<CareRecord> {
         val array = ArrayList<CareRecord>()
-        var cursor = database!!.rawQuery("SELECT * FROM CareRecords WHERE category = \"" + careCategoryName + "\"", null)
+        var cursor = database!!.rawQuery("SELECT * FROM CareRecords WHERE category = \"" + careCategoryName + "\" AND pet_id ="+petId, null)
         cursor.moveToFirst()
         while (!cursor.isAfterLast) {
             val record = CareRecord(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), Date(cursor.getLong(4)),

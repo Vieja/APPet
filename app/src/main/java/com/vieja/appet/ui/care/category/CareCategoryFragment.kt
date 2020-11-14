@@ -43,7 +43,7 @@ class CareCategoryFragment : Fragment(R.layout.fragment_care_category) {
     private fun inflateRecyclerView() {
         val dbAccess: DBAccess? = DBAccess.getInstance(requireContext())
         dbAccess!!.open()
-        val categoriesList = dbAccess.getCareRecords(args.careCategoryName)
+        val categoriesList = dbAccess.getCareRecords(args.careCategoryName, args.petId)
         recordRecyclerView.setHasFixedSize(true)
         recordRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())

@@ -1,14 +1,8 @@
 package com.vieja.bricklist
 
-import android.content.Context
-import android.content.Intent
-import android.os.Build
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +11,7 @@ import com.vieja.appet.models.CareCategory
 import com.vieja.appet.ui.care.CareFragmentDirections
 import kotlinx.android.synthetic.main.care_category_card.view.*
 
-class CareCategoryListAdapter(private val context: Context, private val caregoriesList: List<CareCategory>) :
+class CareCategoryListAdapter(private val caregoriesList: List<CareCategory>, private val pet_id: Int) :
     RecyclerView.Adapter<CareCategoryListAdapter.MainHolder>() {
 
 
@@ -33,7 +27,7 @@ class CareCategoryListAdapter(private val context: Context, private val caregori
         holder.itemView.care_category_card.transitionName = transition
         holder.name.setOnClickListener { view ->
             val extras = FragmentNavigatorExtras(holder.itemView.care_category_card to transition)
-            val action = CareFragmentDirections.actionNavigationCareToCareCategoryFragment(holder.category_name)
+            val action = CareFragmentDirections.actionNavigationCareToCareCategoryFragment(holder.category_name, pet_id)
             findNavController(view).navigate(action, extras)
         }
     }

@@ -29,7 +29,7 @@ class CareCategoryListAdapter(private val context: Context, private val caregori
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
         holder.bind(caregoriesList[position])
-        val transition = "careCategoryTransition_" + holder.name.text.toString()
+        val transition = "careCategoryTransition_" + holder.category_name.toString()
         holder.itemView.care_category_card.transitionName = transition
         holder.name.setOnClickListener { view ->
             val extras = FragmentNavigatorExtras(holder.itemView.care_category_card to transition)

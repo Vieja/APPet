@@ -33,11 +33,26 @@
         <argument
             android:name="careCategoryName"
             app:argType="string" />
+        <action
+            android:id="@+id/action_careCategoryFragment_to_careRecordFragment"
+            app:destination="@id/careRecordFragment" >
+            <argument
+                android:name="careRecordID"
+                android:defaultValue="0" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/blankFragment"
         android:name="com.vieja.appet.BlankFragment"
         android:label="fragment_blank"
         tools:layout="@layout/fragment_blank" />
+    <fragment
+        android:id="@+id/careRecordFragment"
+        android:name="com.vieja.appet.ui.care.category.CareRecordFragment"
+        android:label="CareRecordFragment" >
+        <argument
+            android:name="careRecordID"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>

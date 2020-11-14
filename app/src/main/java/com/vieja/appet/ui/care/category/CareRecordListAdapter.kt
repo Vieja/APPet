@@ -17,6 +17,7 @@ import com.vieja.appet.R
 import com.vieja.appet.models.CareCategory
 import com.vieja.appet.models.CareRecord
 import com.vieja.appet.ui.care.CareFragmentDirections
+import com.vieja.appet.ui.care.category.CareCategoryFragmentDirections
 import kotlinx.android.synthetic.main.care_category_card.view.*
 import kotlinx.android.synthetic.main.care_record_card.view.*
 import java.text.SimpleDateFormat
@@ -32,13 +33,13 @@ class CareRecordListAdapter(private val context: Context, private val recordsLis
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
         holder.bind(recordsList[position])
-//        val transition = "careCategoryTransition_" + holder.name.text.toString()
-//        holder.itemView.care_category_card.transitionName = transition
-//        holder.name.setOnClickListener { view ->
-//            val extras = FragmentNavigatorExtras(holder.itemView.care_category_card to transition)
-//            val action = CareFragmentDirections.actionNavigationCareToCareCategoryFragment(view.careCategoryName.text.toString())
-//            findNavController(view).navigate(action, extras)
-//        }
+        val transition = "careRecordTransition_" + holder.id.toString()
+        holder.itemView.care_record_card.transitionName = transition
+        holder.card.setOnClickListener { view ->
+            val extras = FragmentNavigatorExtras(holder.itemView.care_record_card to transition)
+            val action = CareCategoryFragmentDirections.actionCareCategoryFragmentToCareRecordFragment(holder.id)
+            findNavController(view).navigate(action, extras)
+        }
     }
 
     inner class MainHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -46,6 +47,8 @@ class CareRecordListAdapter(private val context: Context, private val recordsLis
         val subtitle = itemView.record_subtitle
         val date = itemView.record_date
         val hour = itemView.record_hour
+        val card = itemView.record_card
+        var id : Int = 0
 
         val formattedDateAsLongMonth = SimpleDateFormat(
             "dd MMM yyyy", ConfigurationCompat.getLocales(
@@ -64,6 +67,7 @@ class CareRecordListAdapter(private val context: Context, private val recordsLis
             subtitle.text = pr.subtitle
             date.text = formattedDateAsLongMonth.format(pr.date!!)
             hour.text = formattedDateAsTime.format(pr.hour!!)
+            id = pr.id
         }
 
     }

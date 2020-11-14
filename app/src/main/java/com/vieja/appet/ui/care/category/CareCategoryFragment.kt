@@ -3,6 +3,8 @@ package com.vieja.appet.ui.care.category
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
@@ -17,6 +19,8 @@ import com.vieja.bricklist.CareRecordListAdapter
 import kotlinx.android.synthetic.main.care_category_card.*
 import kotlinx.android.synthetic.main.fragment_care.*
 import kotlinx.android.synthetic.main.fragment_care_category.*
+import kotlinx.android.synthetic.main.fragment_care_category.open_care_category_card
+import kotlinx.android.synthetic.main.fragment_record.*
 
 class CareCategoryFragment : Fragment(R.layout.fragment_care_category) {
 
@@ -24,9 +28,11 @@ class CareCategoryFragment : Fragment(R.layout.fragment_care_category) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity() as? MainActivity)?.setSupportActionBar(toolbar_care_category)
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
+        (requireActivity() as? MainActivity)?.setSupportActionBar((toolbar_care_category) as Toolbar)
         val navHostFragment = NavHostFragment.findNavController(this)
-        NavigationUI.setupWithNavController(toolbar_care_category, navHostFragment)
+        NavigationUI.setupWithNavController((toolbar_care_category) as Toolbar, navHostFragment)
         open_care_category_card.transitionName = "careCategoryTransition_" + args.careCategoryName
         sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
 

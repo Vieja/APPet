@@ -1,24 +1,16 @@
 package com.vieja.bricklist
 
 import android.content.Context
-import android.content.Intent
-import android.os.Build
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.core.os.ConfigurationCompat
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import com.vieja.appet.R
-import com.vieja.appet.models.CareCategory
 import com.vieja.appet.models.CareRecord
-import com.vieja.appet.ui.care.CareFragmentDirections
 import com.vieja.appet.ui.care.category.CareCategoryFragmentDirections
-import kotlinx.android.synthetic.main.care_category_card.view.*
 import kotlinx.android.synthetic.main.care_record_card.view.*
 import java.text.SimpleDateFormat
 

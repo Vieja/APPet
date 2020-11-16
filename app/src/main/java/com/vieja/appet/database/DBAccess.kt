@@ -22,6 +22,7 @@ import java.io.StringWriter
 import java.net.URL
 import java.net.URLConnection
 import java.sql.Time
+import java.time.LocalDate
 import java.util.*
 import javax.xml.parsers.DocumentBuilder
 import javax.xml.parsers.DocumentBuilderFactory
@@ -34,6 +35,16 @@ class DBAccess private constructor(val context: Context) {
 
     fun open() {
         database = openHelper.writableDatabase
+    }
+
+    fun getRecord(careRecordID: Int): CareRecord? {
+        var cursor = database!!.rawQuery("SELECT * FROM CareRecords WHERE id = "+ careRecordID.toString(), null)
+        cursor.moveToFirst()
+        if (cursor.isAfterLast) return null
+        else {
+            return CareRecord(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), Date(cursor.getLong(4)),
+                Time(cursor.getLong(5)), cursor.getBlob(6), cursor.getString(7))
+        }
     }
 
     fun getPet(id : Int): Pet? {
@@ -92,6 +103,19 @@ class DBAccess private constructor(val context: Context) {
         return array
     }
 
+    fun getCareCategories() : ArrayList<CareCategory>? {
+        val array = ArrayList<CareCategory>()
+        var cursor = database!!.rawQuery("SELECT * FROM CareCategory", null)
+        cursor.moveToFirst()
+        while (!cursor.isAfterLast) {
+            var name = cursor.getString(1)
+            array.add(CareCategory(getLocalNameOfRes(name), name, 0))
+            cursor.moveToNext()
+        }
+        cursor.close()
+        return array
+    }
+
     fun getCategories() : ArrayList<Category>? {
         val array = ArrayList<Category>()
         var cursor = database!!.rawQuery("SELECT * FROM Category", null)
@@ -106,6 +130,7 @@ class DBAccess private constructor(val context: Context) {
     }
 
     fun getLocalNameOfRes(name: String): String {
+        Log.v("HEHE",name)
         val id = context.resources.getIdentifier(name, "string", context.packageName)
         return context.resources.getString(id)
     }
@@ -393,7 +418,6 @@ class DBAccess private constructor(val context: Context) {
         return res
 
     }
-
 
 
     companion object {

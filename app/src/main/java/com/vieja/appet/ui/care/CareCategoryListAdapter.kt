@@ -11,7 +11,7 @@ import com.vieja.appet.models.CareCategory
 import com.vieja.appet.ui.care.CareFragmentDirections
 import kotlinx.android.synthetic.main.care_category_card.view.*
 
-class CareCategoryListAdapter(private val caregoriesList: List<CareCategory>, private val pet_id: Int) :
+class CareCategoryListAdapter(private val caregoriesList: List<CareCategory>) :
     RecyclerView.Adapter<CareCategoryListAdapter.MainHolder>() {
 
 
@@ -27,7 +27,7 @@ class CareCategoryListAdapter(private val caregoriesList: List<CareCategory>, pr
         holder.itemView.care_category_card.transitionName = transition
         holder.name.setOnClickListener { view ->
             val extras = FragmentNavigatorExtras(holder.itemView.care_category_card to transition)
-            val action = CareFragmentDirections.actionNavigationCareToCareCategoryFragment(holder.category_name, pet_id)
+            val action = CareFragmentDirections.actionNavigationCareToCareCategoryFragment(holder.category_name)
             findNavController(view).navigate(action, extras)
         }
     }

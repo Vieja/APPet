@@ -61,7 +61,7 @@ class CareFragment : Fragment(R.layout.fragment_care), AdapterView.OnItemSelecte
         careCategoriesRecyclerView.setHasFixedSize(true)
         careCategoriesRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = CareCategoryListAdapter(categoriesList, pet_id)
+            adapter = CareCategoryListAdapter(categoriesList)
         }
     }
 

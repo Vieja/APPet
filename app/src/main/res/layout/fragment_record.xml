@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:minHeight="50dp"
                 android:layout_marginHorizontal="20dp"
-                android:id="@+id/spinnerCareCategory"/>
+                android:id="@+id/spinnerCareRecord"/>
 
             <View
                 android:layout_width="match_parent"
@@ -60,7 +60,7 @@
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/info_text_title"
+                    android:id="@+id/record_text_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="false"
@@ -68,7 +68,7 @@
                     style="@style/MyTextInputEditText_filledBox_padding"
                     android:hint="Tytuł"
                     android:inputType="text"
-                    android:text="species" />
+                    android:text=" " />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -82,7 +82,7 @@
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/info_text_subtitle"
+                    android:id="@+id/record_text_subtitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="false"
@@ -90,7 +90,7 @@
                     style="@style/MyTextInputEditText_filledBox_padding"
                     android:hint="Podtytuł"
                     android:inputType="text"
-                    android:text="species" />
+                    android:text=" " />
             </com.google.android.material.textfield.TextInputLayout>
 
             <View
@@ -109,8 +109,8 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="65dp"
-                    android:paddingLeft="25dp"
-                    android:paddingRight="10dp"
+                    android:paddingStart="25dp"
+                    android:paddingEnd="10dp"
                     android:layout_gravity="center_vertical"
                     android:background="@android:color/transparent"
                     app:boxBackgroundColor="@android:color/transparent"
@@ -126,7 +126,7 @@
                         style="@style/MyTextInputEditText_filledBox_padding"
                         android:hint="Data"
                         android:inputType="date"
-                        android:text="birth" />
+                        android:text=" " />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -134,8 +134,8 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="65dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="25dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="25dp"
                     android:layout_gravity="center_vertical"
                     android:background="@android:color/transparent"
                     app:boxBackgroundColor="@android:color/transparent"
@@ -151,7 +151,7 @@
                         style="@style/MyTextInputEditText_filledBox_padding"
                         android:hint="Godzina"
                         android:inputType="date"
-                        android:text="birth" />
+                        android:text=" " />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
@@ -171,7 +171,7 @@
                 android:textSize="18sp" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/info_label_description"
+                android:id="@+id/record_label_description"
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -190,7 +190,7 @@
                     style="@style/MyTextInputEditText_filledBox_padding"
                     android:hint="Uwagi"
                     android:inputType="textMultiLine"
-                    android:text="species"  />
+                    android:text=" "  />
             </com.google.android.material.textfield.TextInputLayout>
 
             <View

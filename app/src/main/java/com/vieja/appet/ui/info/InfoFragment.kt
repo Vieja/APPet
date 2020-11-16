@@ -36,7 +36,7 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
         setHasOptionsMenu(true)
         val appBarConfiguration = (activity as MainActivity).appBarConfiguration
         val navHostFragment = NavHostFragment.findNavController(this)
-        NavigationUI.setupWithNavController(toolbar_collapsed, navHostFragment,appBarConfiguration)
+        NavigationUI.setupWithNavController(toolbar_collapsed, navHostFragment, appBarConfiguration)
         toolbar_collapsed.navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_baseline_menu_white_24, null)
         toolbar_collapsed.setNavigationOnClickListener {
             (activity as MainActivity).drawer_layout.openDrawer(GravityCompat.START)

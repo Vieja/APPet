@@ -36,8 +36,11 @@
         android:name="com.vieja.appet.ui.care.category.CareRecordFragment"
         android:label="CareRecordFragment" >
         <argument
-            android:name="careRecordID"
+            android:name="care_record_ID"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_careRecordFragment_to_careRecordEditFragment"
+            app:destination="@id/careRecordEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/careCategoryFragment"
@@ -49,8 +52,12 @@
         <argument
             android:name="care_category_name"
             app:argType="string" />
-        <argument
-            android:name="pet_id"
+    </fragment>
+    <fragment
+        android:id="@+id/careRecordEditFragment"
+        android:name="com.vieja.appet.ui.care.category.CareRecordEditFragment"
+        android:label="CareRecordEditFragment" >
+        <argument android:name="care_record_ID"
             app:argType="integer" />
     </fragment>
 

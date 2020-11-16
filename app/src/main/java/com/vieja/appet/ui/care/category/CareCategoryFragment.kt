@@ -7,12 +7,14 @@ import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionInflater
 import com.vieja.appet.MainActivity
+import com.vieja.appet.MainActivityViewModel
 import com.vieja.appet.R
 import com.vieja.appet.database.DBAccess
 import com.vieja.bricklist.CareCategoryListAdapter
@@ -26,9 +28,11 @@ import kotlinx.android.synthetic.main.fragment_record.*
 class CareCategoryFragment : Fragment(R.layout.fragment_care_category) {
 
     private val args: CareCategoryFragmentArgs by navArgs()
+    private lateinit var mainViewModel: MainActivityViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mainViewModel = ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
         (requireActivity() as? MainActivity)?.setSupportActionBar((toolbar_care_category) as Toolbar)
@@ -44,15 +48,17 @@ class CareCategoryFragment : Fragment(R.layout.fragment_care_category) {
     private fun inflateRecyclerView() {
         val dbAccess: DBAccess? = DBAccess.getInstance(requireContext())
         dbAccess!!.open()
-        val categoriesList = dbAccess.getCareRecords(args.careCategoryName, args.petId)
-        if (categoriesList.size != 0) {
-            infoNoRecords.visibility = View.GONE
-            recordRecyclerView.setHasFixedSize(true)
-            recordRecyclerView.apply {
-                layoutManager = LinearLayoutManager(requireContext())
-                adapter = CareRecordListAdapter(requireContext(), categoriesList)
+        mainViewModel.getChosenPet().observe(viewLifecycleOwner, {
+            val categoriesList = dbAccess.getCareRecords(args.careCategoryName, it)
+            if (categoriesList.size != 0) {
+                infoNoRecords.visibility = View.GONE
+                recordRecyclerView.setHasFixedSize(true)
+                recordRecyclerView.apply {
+                    layoutManager = LinearLayoutManager(requireContext())
+                    adapter = CareRecordListAdapter(requireContext(), categoriesList)
+                }
             }
-        }
+        })
     }
 
 }

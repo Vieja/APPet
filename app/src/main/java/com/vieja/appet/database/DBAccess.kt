@@ -26,7 +26,6 @@ import java.time.LocalDate
 import java.util.*
 import javax.xml.parsers.DocumentBuilder
 import javax.xml.parsers.DocumentBuilderFactory
-import kotlin.collections.ArrayList
 
 
 class DBAccess private constructor(val context: Context) {
@@ -103,7 +102,7 @@ class DBAccess private constructor(val context: Context) {
         return array
     }
 
-    fun getCareCategories() : ArrayList<CareCategory>? {
+    fun getCareCategories() : ArrayList<CareCategory> {
         val array = ArrayList<CareCategory>()
         var cursor = database!!.rawQuery("SELECT * FROM CareCategory", null)
         cursor.moveToFirst()
@@ -134,6 +133,21 @@ class DBAccess private constructor(val context: Context) {
         return context.resources.getString(id)
     }
 
+    fun updateRecord(careRecordID: Int, category: String, title: String?, subtitle: String?, date: Date?, time: Date?, note: String?) {
+        val sql =
+            "UPDATE CareRecords SET title = \"" + title + "\", subtitle = \""+ subtitle + "\", date = "+ date!!.time + ", hour = " +time!!.time + ", note = \""+note+"\", category= \""+category+"\" WHERE id = " + careRecordID
+        val insertStmt: SQLiteStatement = database!!.compileStatement(sql)
+        insertStmt.clearBindings()
+        insertStmt.executeUpdateDelete()
+    }
+
+    fun updateRecord(careRecordID: Int, category: String, title: String?, subtitle: String?, date: Date?, note: String?) {
+        val sql =
+            "UPDATE CareRecords SET title = " + title + ", subtitle = "+ subtitle + ", date = "+ date!!.time + ", note ="+note+", category="+category+" WHERE id = " + careRecordID
+        val insertStmt: SQLiteStatement = database!!.compileStatement(sql)
+        insertStmt.clearBindings()
+        insertStmt.executeUpdateDelete()
+    }
 
 
 
@@ -417,6 +431,8 @@ class DBAccess private constructor(val context: Context) {
         return res
 
     }
+
+
 
 
     companion object {

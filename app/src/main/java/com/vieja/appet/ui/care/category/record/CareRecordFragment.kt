@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.os.ConfigurationCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -20,6 +21,7 @@ import com.vieja.appet.database.DBAccess
 import com.vieja.appet.ui.care.category.record.CareCategoryAdapter
 import kotlinx.android.synthetic.main.fragment_care_category.open_care_category_card
 import kotlinx.android.synthetic.main.fragment_record.*
+import java.text.SimpleDateFormat
 
 class CareRecordFragment : Fragment(R.layout.fragment_record) {
 
@@ -72,11 +74,26 @@ class CareRecordFragment : Fragment(R.layout.fragment_record) {
     private fun presentRecord() {
         val dbAccess: DBAccess? = DBAccess.getInstance(requireContext())
         dbAccess!!.open()
+
+        val formattedDatePretty= SimpleDateFormat(
+            resources.getString(R.string.pretty_date), ConfigurationCompat.getLocales(
+                resources.configuration
+            )[0]
+        )
+
+        val formattedTimePretty= SimpleDateFormat(
+            resources.getString(R.string.pretty_time), ConfigurationCompat.getLocales(
+                resources.configuration
+            )[0]
+        )
+
         val record = dbAccess.getRecord(args.careRecordID)
         populateDropdownCategory(record!!.category)
         (record_text_title as TextView).text = record.title
         (record_text_subtitle as TextView).text = record.subtitle
         (record_text_note as TextView).text = record.note
+        (record_date as TextView).text = formattedDatePretty.format(record.date)
+        (record_time as TextView).text = formattedTimePretty.format(record.hour)
     }
 
 

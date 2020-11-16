@@ -1,11 +1,14 @@
 package com.vieja.appet.ui.care.category
 
 import android.app.TimePickerDialog
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.TimePicker
 import android.widget.Toast
@@ -22,6 +25,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.vieja.appet.MainActivity
 import com.vieja.appet.R
 import com.vieja.appet.database.DBAccess
+import com.vieja.appet.models.CareCategory
 import com.vieja.appet.ui.care.category.record.CareCategoryAdapter
 import kotlinx.android.synthetic.main.fragment_care_category.open_care_category_card
 import kotlinx.android.synthetic.main.fragment_record.*
@@ -32,9 +36,12 @@ import java.util.*
 class CareRecordEditFragment : Fragment(R.layout.fragment_record) {
 
     private val args: CareRecordEditFragmentArgs by navArgs()
+    lateinit var navController : NavController
+    lateinit var care_categories : ArrayList<CareCategory>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
         (requireActivity() as? MainActivity)?.setSupportActionBar((toolbar_care_record) as Toolbar)
         setHasOptionsMenu(true)
         val navHostFragment = NavHostFragment.findNavController(this)
@@ -93,19 +100,76 @@ class CareRecordEditFragment : Fragment(R.layout.fragment_record) {
         makeViewsEditable()
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var id = 0
+        if (item.itemId == R.id.menuConfirm) {
+            if(args.careRecordID != 0) {
+                updateRecord()
+                id = args.careRecordID
+            } else {
+                id = 1
+            }
+            val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0)
+            requireActivity().onBackPressed()
+
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun updateRecord() {
+        val dbAccess: DBAccess? = DBAccess.getInstance(requireContext())
+        dbAccess!!.open()
+
+        val formattedDatePretty= SimpleDateFormat(
+            resources.getString(R.string.pretty_date), ConfigurationCompat.getLocales(
+                resources.configuration
+            )[0]
+        )
+        val formattedTimePretty= SimpleDateFormat(
+            resources.getString(R.string.pretty_time), ConfigurationCompat.getLocales(
+                resources.configuration
+            )[0]
+        )
+
+        val date = formattedDatePretty.parse(record_date.text.toString())
+        val time = formattedTimePretty.parse(record_time.text.toString())
+
+        if (time != null)
+            dbAccess.updateRecord(
+                args.careRecordID,
+                care_categories.get(spinnerCareRecord.selectedItemId.toInt()).res_name,
+                (record_text_title as TextView).text.toString(),
+                (record_text_subtitle as TextView).text.toString(),
+                date,
+                time,
+                (record_text_note as TextView).text.toString()
+            )
+        else
+            dbAccess.updateRecord(
+                args.careRecordID,
+                care_categories.get(spinnerCareRecord.selectedItemId.toInt()).res_name,
+                (record_text_title as TextView).text.toString(),
+                (record_text_subtitle as TextView).text.toString(),
+                date,
+                (record_text_note as TextView).text.toString()
+            )
+    }
+
     private fun populateDropdownCategory(categoryName: String) {
         val dbAccess: DBAccess? = DBAccess.getInstance(requireContext())
         dbAccess!!.open()
-        val array = dbAccess.getCareCategories()
-        val adapter = CareCategoryAdapter(requireContext(), array!!)
+        care_categories = dbAccess.getCareCategories()
+        val adapter = CareCategoryAdapter(requireContext(), care_categories!!)
         val spinner = spinnerCareRecord
-        spinner.isEnabled = false
         spinner.adapter = adapter
         var id = 0
-        for (cat in array) {
+        for (cat in care_categories) {
             if (cat.res_name == categoryName) break
             else id += 1
         }
+        spinner.setSelection(id)
     }
 
     private fun makeViewsEditable() {

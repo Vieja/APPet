@@ -43,7 +43,7 @@ class DBAccess private constructor(val context: Context) {
         if (cursor.isAfterLast) return null
         else {
             return CareRecord(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), Date(cursor.getLong(4)),
-                Time(cursor.getLong(5)), cursor.getBlob(6), cursor.getString(7))
+                Date(cursor.getLong(5)), cursor.getBlob(6), cursor.getString(7))
         }
     }
 
@@ -130,7 +130,6 @@ class DBAccess private constructor(val context: Context) {
     }
 
     fun getLocalNameOfRes(name: String): String {
-        Log.v("HEHE",name)
         val id = context.resources.getIdentifier(name, "string", context.packageName)
         return context.resources.getString(id)
     }

@@ -119,6 +119,7 @@
                     app:endIconMode="custom">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/record_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
@@ -126,6 +127,7 @@
                         style="@style/MyTextInputEditText_filledBox_padding"
                         android:hint="Data"
                         android:inputType="date"
+                        android:textAlignment="center"
                         android:text=" " />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -144,12 +146,14 @@
                     app:endIconMode="custom">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/record_time"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
                         style="@style/MyTextInputEditText_filledBox_padding"
                         android:hint="Godzina"
+                        android:textAlignment="center"
                         android:inputType="date"
                         android:text=" " />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -183,6 +187,7 @@
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/record_text_note"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="false"

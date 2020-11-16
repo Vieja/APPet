@@ -72,8 +72,8 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
         dbAccess!!.open()
         mainViewModel.getChosenPet().observe(viewLifecycleOwner, {
             val pet = dbAccess.getPet(it)
-            val formattedDateAsLongMonth = SimpleDateFormat(
-                "dd MMM yyyy", ConfigurationCompat.getLocales(
+            val formattedDatePretty = SimpleDateFormat(
+                resources.getString(R.string.pretty_date), ConfigurationCompat.getLocales(
                     resources.configuration
                 )[0]
             )
@@ -101,7 +101,7 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
             }
             if (pet.birth != Date(0)) {
                 (info_text_birth as TextView).text =
-                    formattedDateAsLongMonth.format(
+                    formattedDatePretty.format(
                         pet.birth!!
                     )
             } else {
@@ -110,7 +110,7 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
             }
             if (pet.death != Date(0)) {
                 (info_text_death as TextView).text =
-                    formattedDateAsLongMonth.format(
+                    formattedDatePretty.format(
                         pet.death!!
                     )
             } else {
@@ -119,7 +119,7 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
             }
             if (pet.acquisition_date != Date(0)) {
                 (info_text_acquisition as TextView).text =
-                    formattedDateAsLongMonth.format(
+                    formattedDatePretty.format(
                         pet.acquisition_date!!
                     )
             } else {

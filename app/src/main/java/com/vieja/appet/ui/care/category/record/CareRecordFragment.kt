@@ -1,7 +1,6 @@
 package com.vieja.appet.ui.care.category
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -11,20 +10,15 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.NavigationUI
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionInflater
 import com.vieja.appet.MainActivity
 import com.vieja.appet.R
 import com.vieja.appet.database.DBAccess
 import com.vieja.appet.ui.care.category.record.CareCategoryAdapter
-import com.vieja.appet.ui.info.CategoryAdapter
-import kotlinx.android.synthetic.main.care_record_card.view.*
 import kotlinx.android.synthetic.main.fragment_care_category.open_care_category_card
-import kotlinx.android.synthetic.main.fragment_info.*
 import kotlinx.android.synthetic.main.fragment_record.*
 
 class CareRecordFragment : Fragment(R.layout.fragment_record) {
@@ -81,6 +75,8 @@ class CareRecordFragment : Fragment(R.layout.fragment_record) {
         val record = dbAccess.getRecord(args.careRecordID)
         populateDropdownCategory(record!!.category)
         (record_text_title as TextView).text = record.title
+        (record_text_subtitle as TextView).text = record.subtitle
+        (record_text_note as TextView).text = record.note
     }
 
 

@@ -23,6 +23,10 @@
     <string name="health">Health</string>
     <string name="purchases">Purchases</string>
     <string name="measure">Weight and measure</string>
+    <string name="datepicker_date">MMM d, yyyy</string>
+    <string name="timepicker_time">"H:m"</string>
+    <string name="pretty_date">d MMM yyyy</string>
+    <string name="pretty_time">"HH:mm"</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_records">Currently there are no records.</string>

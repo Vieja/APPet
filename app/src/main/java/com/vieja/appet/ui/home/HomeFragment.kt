@@ -20,8 +20,6 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
-    private lateinit var homeViewModel: HomeViewModel
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).setSupportActionBar(toolbar_home)
@@ -33,10 +31,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             (activity as MainActivity).drawer_layout.openDrawer(GravityCompat.START)
         }
 
-        homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        homeViewModel.text.observe(viewLifecycleOwner, {
-            text_home.text = it
-        })
     }
 
 

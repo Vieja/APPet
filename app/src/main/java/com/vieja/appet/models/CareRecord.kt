@@ -7,8 +7,8 @@ class CareRecord (var id: Int,
                   var title: String,
                   var subtitle: String?,
                   var note: String?,
-                  var date: Date?,
-                  var hour: Time?,
+                  var date: Date,
+                  var hour: Date?,
                   var image: ByteArray?,
                   var category: String) {
 

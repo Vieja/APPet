@@ -42,14 +42,14 @@ class CareRecordListAdapter(private val context: Context, private val recordsLis
         val card = itemView.record_card
         var id : Int = 0
 
-        val formattedDateAsLongMonth = SimpleDateFormat(
-            "dd MMM yyyy", ConfigurationCompat.getLocales(
+        val formattedDatePretty = SimpleDateFormat(
+            context.resources.getString(R.string.pretty_date), ConfigurationCompat.getLocales(
                 context.resources.configuration
             )[0]
         )
 
-        val formattedDateAsTime = SimpleDateFormat(
-            "HH:mm", ConfigurationCompat.getLocales(
+        val formattedTimePretty = SimpleDateFormat(
+            context.resources.getString(R.string.pretty_time), ConfigurationCompat.getLocales(
                 context.resources.configuration
             )[0]
         )
@@ -57,8 +57,8 @@ class CareRecordListAdapter(private val context: Context, private val recordsLis
         fun bind(pr: CareRecord) {
             title.text = pr.title
             subtitle.text = pr.subtitle
-            date.text = formattedDateAsLongMonth.format(pr.date!!)
-            hour.text = formattedDateAsTime.format(pr.hour!!)
+            date.text = formattedDatePretty.format(pr.date)
+            hour.text = formattedTimePretty.format(pr.hour!!)
             id = pr.id
         }
 

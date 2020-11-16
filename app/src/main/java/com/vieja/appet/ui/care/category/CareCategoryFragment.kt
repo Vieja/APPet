@@ -1,5 +1,6 @@
 package com.vieja.appet.ui.care.category
 
+import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -44,10 +45,13 @@ class CareCategoryFragment : Fragment(R.layout.fragment_care_category) {
         val dbAccess: DBAccess? = DBAccess.getInstance(requireContext())
         dbAccess!!.open()
         val categoriesList = dbAccess.getCareRecords(args.careCategoryName, args.petId)
-        recordRecyclerView.setHasFixedSize(true)
-        recordRecyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = CareRecordListAdapter(requireContext(), categoriesList)
+        if (categoriesList.size != 0) {
+            infoNoRecords.visibility = View.GONE
+            recordRecyclerView.setHasFixedSize(true)
+            recordRecyclerView.apply {
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = CareRecordListAdapter(requireContext(), categoriesList)
+            }
         }
     }
 

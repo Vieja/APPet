@@ -38,7 +38,7 @@ class CareRecordEditFragment : Fragment(R.layout.fragment_record) {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_info_edit, menu)
+        inflater.inflate(R.menu.menu_confirm_edit, menu)
         presentRecord()
         makeViewsEditable()
     }

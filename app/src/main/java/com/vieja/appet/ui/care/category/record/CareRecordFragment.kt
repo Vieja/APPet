@@ -50,8 +50,11 @@ class CareRecordFragment : Fragment(R.layout.fragment_record) {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val action = CareRecordFragmentDirections.actionCareRecordFragmentToCareRecordEditFragment(args.careRecordID)
-        navController.navigate(action)
+        if (item.itemId == R.id.menuEdit) {
+            val action =
+                CareRecordFragmentDirections.actionCareRecordFragmentToCareRecordEditFragment(args.careRecordID)
+            navController.navigate(action)
+        }
 
         return super.onOptionsItemSelected(item)
     }

@@ -1,10 +1,12 @@
 package com.vieja.appet.ui.care.category
 
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.ConfigurationCompat
@@ -30,6 +32,8 @@ class CareRecordFragment : Fragment(R.layout.fragment_record) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0)
         navController = Navigation.findNavController(view)
         (requireActivity() as? MainActivity)?.setSupportActionBar((toolbar_care_record) as Toolbar)
         setHasOptionsMenu(true)
@@ -47,8 +51,7 @@ class CareRecordFragment : Fragment(R.layout.fragment_record) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menuEdit) {
-            val action =
-                CareRecordFragmentDirections.actionCareRecordFragmentToCareRecordEditFragment(args.careRecordID)
+            val action = CareRecordFragmentDirections.actionCareRecordFragmentToCareRecordEditFragment(args.careRecordID)
             navController.navigate(action)
         }
 

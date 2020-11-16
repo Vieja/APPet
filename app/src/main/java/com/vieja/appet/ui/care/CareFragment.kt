@@ -1,8 +1,10 @@
 package com.vieja.appet.ui.care
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.LinearLayout
 import androidx.appcompat.widget.Toolbar
@@ -38,6 +40,8 @@ class CareFragment : Fragment(R.layout.fragment_care), AdapterView.OnItemSelecte
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0)
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
         mainViewModel = ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)

@@ -41,6 +41,8 @@ class CareRecordEditFragment : Fragment(R.layout.fragment_record) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0)
         navController = Navigation.findNavController(view)
         (requireActivity() as? MainActivity)?.setSupportActionBar((toolbar_care_record) as Toolbar)
         setHasOptionsMenu(true)
@@ -96,7 +98,8 @@ class CareRecordEditFragment : Fragment(R.layout.fragment_record) {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_confirm_edit, menu)
-        presentRecord()
+        populateDropdownCategory()
+        if (args.careRecordID != 0) presentRecord()
         makeViewsEditable()
     }
 
@@ -109,8 +112,6 @@ class CareRecordEditFragment : Fragment(R.layout.fragment_record) {
             } else {
                 id = 1
             }
-            val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0)
             requireActivity().onBackPressed()
 
         }
@@ -157,19 +158,13 @@ class CareRecordEditFragment : Fragment(R.layout.fragment_record) {
             )
     }
 
-    private fun populateDropdownCategory(categoryName: String) {
+    private fun populateDropdownCategory() {
         val dbAccess: DBAccess? = DBAccess.getInstance(requireContext())
         dbAccess!!.open()
         care_categories = dbAccess.getCareCategories()
         val adapter = CareCategoryAdapter(requireContext(), care_categories!!)
         val spinner = spinnerCareRecord
         spinner.adapter = adapter
-        var id = 0
-        for (cat in care_categories) {
-            if (cat.res_name == categoryName) break
-            else id += 1
-        }
-        spinner.setSelection(id)
     }
 
     private fun makeViewsEditable() {
@@ -198,8 +193,14 @@ class CareRecordEditFragment : Fragment(R.layout.fragment_record) {
         )
 
         val record = dbAccess.getRecord(args.careRecordID)
-        populateDropdownCategory(record!!.category)
-        (record_text_title as TextView).text = record.title
+        val spinner = spinnerCareRecord
+        var id = 0
+        for (cat in care_categories) {
+            if (cat.res_name == record!!.category) break
+            else id += 1
+        }
+        spinner.setSelection(id)
+        (record_text_title as TextView).text = record!!.title
         (record_text_subtitle as TextView).text = record.subtitle
         (record_text_note as TextView).text = record.note
         (record_date as TextView).text = formattedDatePretty.format(record.date)

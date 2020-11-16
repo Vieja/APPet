@@ -53,6 +53,14 @@
         <argument
             android:name="care_category_name"
             app:argType="string" />
+        <action
+            android:id="@+id/action_careCategoryFragment_to_careRecordEditFragment"
+            app:destination="@id/careRecordEditFragment"
+            app:enterAnim="@anim/slide_in_bottom">
+            <argument
+                android:name="care_record_ID"
+                android:defaultValue="0" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/careRecordEditFragment"

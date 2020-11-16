@@ -1,13 +1,17 @@
 package com.vieja.appet.ui.care.category
 
+import android.content.Context
 import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.NavigationUI
@@ -29,9 +33,13 @@ class CareCategoryFragment : Fragment(R.layout.fragment_care_category) {
 
     private val args: CareCategoryFragmentArgs by navArgs()
     private lateinit var mainViewModel: MainActivityViewModel
+    lateinit var navController : NavController
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0)
+        navController = Navigation.findNavController(view)
         mainViewModel = ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
@@ -42,6 +50,11 @@ class CareCategoryFragment : Fragment(R.layout.fragment_care_category) {
         sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
 
         inflateRecyclerView()
+
+        floating_action_button.setOnClickListener {
+            val action = CareCategoryFragmentDirections.actionCareCategoryFragmentToCareRecordEditFragment()
+            navController.navigate(action)
+        }
 
     }
 

@@ -67,7 +67,7 @@
                     android:focusableInTouchMode="false"
                     style="@style/MyTextInputEditText_filledBox_padding"
                     android:hint="Tytuł"
-                    android:inputType="text"
+                    android:inputType="textNoSuggestions"
                     android:text=" " />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -89,7 +89,7 @@
                     android:focusableInTouchMode="false"
                     style="@style/MyTextInputEditText_filledBox_padding"
                     android:hint="Podtytuł"
-                    android:inputType="text"
+                    android:inputType="textNoSuggestions"
                     android:text=" " />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -194,7 +194,7 @@
                     android:focusableInTouchMode="false"
                     style="@style/MyTextInputEditText_filledBox_padding"
                     android:hint="Uwagi"
-                    android:inputType="textMultiLine"
+                    android:inputType="textMultiLine|textNoSuggestions"
                     android:text=" "  />
             </com.google.android.material.textfield.TextInputLayout>
 

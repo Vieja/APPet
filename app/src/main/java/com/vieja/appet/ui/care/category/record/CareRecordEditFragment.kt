@@ -27,8 +27,10 @@ import com.vieja.appet.R
 import com.vieja.appet.database.DBAccess
 import com.vieja.appet.models.CareCategory
 import com.vieja.appet.ui.care.category.record.CareCategoryAdapter
+import kotlinx.android.synthetic.main.care_record_card.*
 import kotlinx.android.synthetic.main.fragment_care_category.open_care_category_card
 import kotlinx.android.synthetic.main.fragment_record.*
+import kotlinx.android.synthetic.main.fragment_record.record_date
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -106,17 +108,33 @@ class CareRecordEditFragment : Fragment(R.layout.fragment_record) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         var id = 0
         if (item.itemId == R.id.menuConfirm) {
-            if(args.careRecordID != 0) {
-                updateRecord()
-                id = args.careRecordID
-            } else {
-                id = 1
+            if(isNotNull()) {
+                if (args.careRecordID != 0) {
+                    updateRecord()
+                    id = args.careRecordID
+                } else {
+                    id = 1
+                }
+                requireActivity().onBackPressed()
             }
-            requireActivity().onBackPressed()
 
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun isNotNull(): Boolean {
+        var result = true
+        if ((record_text_title as TextView).text.toString() == "") {
+            record_text_title.error = getString(R.string.error_title_null)
+            result = false
+        } else record_text_title.error = null
+        if ((record_date as TextView).text.toString() == "") {
+            record_date.error = getString(R.string.error_date_null)
+            result = false
+        } else record_date.error = null
+
+        return result
     }
 
     private fun updateRecord() {

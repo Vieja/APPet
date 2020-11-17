@@ -183,6 +183,13 @@ class CareRecordEditFragment : Fragment(R.layout.fragment_record) {
         val adapter = CareCategoryAdapter(requireContext(), care_categories!!)
         val spinner = spinnerCareRecord
         spinner.adapter = adapter
+        var id = 0
+        for (cat in care_categories) {
+            if (cat.res_name == args.careCategoryName) break
+            else id += 1
+        }
+        spinner.setSelection(id)
+
     }
 
     private fun makeViewsEditable() {
@@ -211,13 +218,6 @@ class CareRecordEditFragment : Fragment(R.layout.fragment_record) {
         )
 
         val record = dbAccess.getRecord(args.careRecordID)
-        val spinner = spinnerCareRecord
-        var id = 0
-        for (cat in care_categories) {
-            if (cat.res_name == record!!.category) break
-            else id += 1
-        }
-        spinner.setSelection(id)
         (record_text_title as TextView).text = record!!.title
         (record_text_subtitle as TextView).text = record.subtitle
         (record_text_note as TextView).text = record.note

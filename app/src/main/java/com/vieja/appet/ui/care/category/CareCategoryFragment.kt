@@ -52,7 +52,7 @@ class CareCategoryFragment : Fragment(R.layout.fragment_care_category) {
         inflateRecyclerView()
 
         floating_action_button.setOnClickListener {
-            val action = CareCategoryFragmentDirections.actionCareCategoryFragmentToCareRecordEditFragment()
+            val action = CareCategoryFragmentDirections.actionCareCategoryFragmentToCareRecordEditFragment(careCategoryName = args.careCategoryName)
             navController.navigate(action)
         }
 

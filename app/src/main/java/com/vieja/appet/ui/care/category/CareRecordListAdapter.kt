@@ -29,7 +29,7 @@ class CareRecordListAdapter(private val context: Context, private val recordsLis
         holder.itemView.care_record_card.transitionName = transition
         holder.card.setOnClickListener { view ->
             val extras = FragmentNavigatorExtras(holder.itemView.care_record_card to transition)
-            val action = CareCategoryFragmentDirections.actionCareCategoryFragmentToCareRecordFragment(holder.id)
+            val action = CareCategoryFragmentDirections.actionCareCategoryFragmentToCareRecordFragment(holder.id, holder.category)
             findNavController(view).navigate(action, extras)
         }
     }
@@ -40,6 +40,7 @@ class CareRecordListAdapter(private val context: Context, private val recordsLis
         val date = itemView.record_date
         val hour = itemView.record_hour
         val card = itemView.record_card
+        lateinit var category : String
         var id : Int = 0
 
         val formattedDatePretty = SimpleDateFormat(
@@ -60,6 +61,7 @@ class CareRecordListAdapter(private val context: Context, private val recordsLis
             date.text = formattedDatePretty.format(pr.date)
             hour.text = formattedTimePretty.format(pr.hour!!)
             id = pr.id
+            category = pr.category
         }
 
     }
